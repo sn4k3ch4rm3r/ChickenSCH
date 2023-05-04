@@ -1,18 +1,14 @@
-#include <SDL.h>
-#include <iostream>
-
-#include "game.h"
 #include "player.h"
+#include "game.h"
 
-void Player::render() {
-	SDL_FRect rect = {
-	    (float)position.getX(),
-	    (float)position.getY(),
-	    16, 16};
-	SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
-	SDL_RenderFillRectF(Game::renderer, &rect);
+Player::Player()
+    : Entity() {
+	_texture = Game::presentation->loadTexture("assets/ship.png");
+	_position = Vector2(160, 150);
 }
 
 void Player::update() {
+	_velocity = Game::presentation->getInputProvider()->getMovementDirection() * 200;
+
 	Entity::update();
 }

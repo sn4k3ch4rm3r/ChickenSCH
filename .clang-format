@@ -57,6 +57,12 @@ ObjCSpaceBeforeProtocolList: true
 PointerAlignment: Left
 ReflowComments: false
 # SeparateDefinitionBlocks: Always   # Only support since clang-format 14
+SortIncludes: true
+IncludeCategories:
+  - Regex: "^<.*>"
+    Priority: 1
+  - Regex: '^".*"'
+    Priority: 2
 SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: true
@@ -74,6 +80,6 @@ SpacesInCStyleCastParentheses: false
 SpacesInContainerLiterals: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
-Standard: c++03
+Standard: c++11
 TabWidth: 4
 UseTab: ForIndentation

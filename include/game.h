@@ -1,26 +1,28 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SDL.h>
-#include "player.h"
+#include <vector>
+#include "entity.h"
+
+#ifndef CPORTA
+#include "sdl_presentation.h"
+#else
+//TODO: include JPORTA presentation facade
+#endif
 
 class Game {
 private:
-	static const int PIXEL_SIZE = 3;
-	SDL_Window* _window;
-
-	int _width;
-	int _height;
 	bool _isRunning;
-
-	Player _player;
 	double _lastTime;
+	std::vector<Entity*> _entities;
 
 public:
-	static SDL_Renderer* renderer;
 	static double deltaTime;
+	static const int width = 320;
+	static const int height = 180;
+	static IPresentationFacade* presentation;
 
-	Game(const char* title, const int width, const int height);
+	Game();
 	~Game();
 
 	void gameLoop();

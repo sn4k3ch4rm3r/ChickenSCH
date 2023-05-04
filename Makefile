@@ -24,10 +24,10 @@ else
 	COPYASSETS := cp assets/ build/bin/ -r -f
 endif
 
-default: CFLAGS += -O3
+default: CXXFLAGS += -O3
 default: setupdirs $(PROG)
 
-debug: CFLAGS += -g
+debug: CXXFLAGS += -g
 debug: setupdirs $(PROG)
 
 setupdirs:

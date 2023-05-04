@@ -1,40 +1,32 @@
-#include <SDL.h>
 #include <iostream>
+#include <queue>
+
+#ifndef CPORTA
+#include "sdl_presentation.h"
+#else
+//TODO: include JPORTA presentation facade
+#endif
 
 #include "game.h"
 #include "player.h"
+#include "texture.h"
 
 double Game::deltaTime = 0;
-SDL_Renderer* Game::renderer = nullptr;
 
-Game::Game(const char* title, const int width, const int height)
-    : _window(NULL), _width(width), _height(height), _isRunning(false) {
+IPresentationFacade* Game::presentation = nullptr;
+Game::Game()
+    : _isRunning(false) {
 
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-		std::cerr << "Error while initializing SDL: " << SDL_GetError() << std::endl;
-	}
+	// TODO: Either add a prepocessor or outsource to a factory
+	presentation = new SDLPresentationFacade("ChickenSCH", width, height);
 
-	_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width * PIXEL_SIZE, height * PIXEL_SIZE, SDL_WINDOW_SHOWN);
-	if (_window == NULL) {
-		std::cerr << "Error while creating window: " << SDL_GetError() << std::endl;
-	}
-
-	renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
-	if (renderer == NULL) {
-		std::cerr << "Error while creating renderer: " << SDL_GetError() << std::endl;
-	}
-
-	SDL_RenderSetLogicalSize(renderer, width, height);
-
-	_player = Player();
-	_player.setPosition(Vector2(_width / 2, _height - 32));
+	_entities.push_back(new Player());
 
 	_isRunning = true;
 }
 
 Game::~Game() {
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(_window);
+	delete presentation;
 }
 
 void Game::gameLoop() {
@@ -48,42 +40,20 @@ void Game::gameLoop() {
 }
 
 void Game::handleEvents() {
-	SDL_Event event;
-	while (SDL_PollEvent(&event)) {
-		switch (event.type) {
-			case SDL_QUIT:
-				_isRunning = false;
-				break;
-			case SDL_KEYDOWN:
-			case SDL_KEYUP: {
-				bool isPressed = event.key.state == SDL_PRESSED;
-				switch (event.key.keysym.sym) {
-					case SDLK_a:
-						_player.setVelocity(Vector2(-200, 0) * isPressed);
-						break;
-					case SDLK_d:
-						_player.setVelocity(Vector2(200, 0) * isPressed);
-						break;
-					default:
-						break;
-				}
-				break;
-			}
-			default:
-				break;
-		}
-	}
+	presentation->handleEvents();
+	_isRunning = presentation->isRunning();
 }
 
 void Game::update() {
-	_player.update();
+	for (size_t i = 0; i < _entities.size(); i++) {
+		_entities[i]->update();
+	}
 }
 
 void Game::render() {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-
-	_player.render();
-
-	SDL_RenderPresent(renderer);
+	presentation->clearScreen();
+	for (auto& entity : _entities) {
+		entity->render();
+	}
+	presentation->renderScreen();
 }

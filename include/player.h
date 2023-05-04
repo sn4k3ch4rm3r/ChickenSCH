@@ -2,12 +2,12 @@
 #define PLAYER_H
 
 #include "entity.h"
+#include "vector2.h"
 
 class Player : public Entity {
 public:
-	Player()
-	    : Entity(){};
+	Player();
 	void update() override;
-	void render() override;
 };
+
 #endif
