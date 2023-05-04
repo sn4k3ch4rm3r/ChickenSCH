@@ -1,14 +1,14 @@
 #include "player.h"
 #include "game.h"
 
-Player::Player()
+Player::Player(int x, int y)
     : Entity() {
-	_texture = Game::presentation->loadTexture("assets/ship.png");
-	_position = Vector2(160, 150);
+	_texture = Game::getInstance().getPresentation()->loadTexture("assets/ship.png");
+	_position = Vector2(x, y);
 }
 
 void Player::update() {
-	_velocity = Game::presentation->getInputProvider()->getMovementDirection() * 200;
+	_velocity = Game::getInstance().getPresentation()->getInputProvider()->getMovementDirection() * 200;
 
 	Entity::update();
 }

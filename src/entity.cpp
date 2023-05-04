@@ -6,7 +6,7 @@ Entity::Entity()
     : _position(0, 0), _velocity(0, 0), _texture(nullptr) {}
 
 void Entity::update() {
-	_position += _velocity * Game::deltaTime;
+	_position += _velocity * Game::getInstance().getDeltaTime();
 }
 
 Vector2 Entity::getPosition() const {
@@ -26,5 +26,5 @@ void Entity::setVelocity(const Vector2& velocity) {
 }
 
 void Entity::render() {
-	Game::presentation->renderTexture(_texture, _position);
+	Game::getInstance().getPresentation()->renderTexture(_texture, Vector2(_position.getX() - _texture->getSize().width / 2, _position.getY() - _texture->getSize().height / 2));
 }

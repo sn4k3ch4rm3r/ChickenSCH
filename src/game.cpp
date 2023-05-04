@@ -11,22 +11,24 @@
 #include "player.h"
 #include "texture.h"
 
-double Game::deltaTime = 0;
+Game Game::_instance;
+Game& Game::getInstance() {
+	return _instance;
+}
 
-IPresentationFacade* Game::presentation = nullptr;
 Game::Game()
     : _isRunning(false) {
 
 	// TODO: Either add a prepocessor or outsource to a factory
-	presentation = new SDLPresentationFacade("ChickenSCH", width, height);
+	_presentation = new SDLPresentationFacade("ChickenSCH", _width, _height);
 
-	_entities.push_back(new Player());
-
+	_entities.push_back(new Player(_width / 2, _height - 24));
 	_isRunning = true;
+	_deltaTime = 0;
 }
 
 Game::~Game() {
-	delete presentation;
+	delete _presentation;
 }
 
 void Game::gameLoop() {
@@ -35,13 +37,13 @@ void Game::gameLoop() {
 		handleEvents();
 		update();
 		render();
-		deltaTime = (SDL_GetPerformanceCounter() - _lastTime) / SDL_GetPerformanceFrequency();
+		_deltaTime = (SDL_GetPerformanceCounter() - _lastTime) / SDL_GetPerformanceFrequency();
 	}
 }
 
 void Game::handleEvents() {
-	presentation->handleEvents();
-	_isRunning = presentation->isRunning();
+	_presentation->handleEvents();
+	_isRunning = _presentation->isRunning();
 }
 
 void Game::update() {
@@ -51,9 +53,25 @@ void Game::update() {
 }
 
 void Game::render() {
-	presentation->clearScreen();
+	_presentation->clearScreen();
 	for (auto& entity : _entities) {
 		entity->render();
 	}
-	presentation->renderScreen();
+	_presentation->renderScreen();
+}
+
+double Game::getDeltaTime() const {
+	return _deltaTime;
+}
+
+double Game::getWidth() const {
+	return _width;
+}
+
+double Game::getHeight() const {
+	return _height;
+}
+
+IPresentationFacade* Game::getPresentation() const {
+	return _presentation;
 }

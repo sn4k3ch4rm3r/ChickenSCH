@@ -11,24 +11,32 @@
 #endif
 
 class Game {
-private:
-	bool _isRunning;
-	double _lastTime;
-	std::vector<Entity*> _entities;
-
 public:
-	static double deltaTime;
-	static const int width = 320;
-	static const int height = 180;
-	static IPresentationFacade* presentation;
-
-	Game();
+	static Game& getInstance();
+	Game(const Game&) = delete;
+	Game& operator=(const Game&) = delete;
 	~Game();
 
 	void gameLoop();
 	void handleEvents();
 	void render();
 	void update();
+
+	double getDeltaTime() const;
+	double getWidth() const;
+	double getHeight() const;
+	IPresentationFacade* getPresentation() const;
+
+private:
+	Game();
+	static Game _instance;
+	double _deltaTime;
+	const int _width = 320;
+	const int _height = 180;
+	IPresentationFacade* _presentation;
+	bool _isRunning;
+	double _lastTime;
+	std::vector<Entity*> _entities;
 };
 
 #endif
