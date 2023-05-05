@@ -2,13 +2,8 @@
 #define GAME_H
 
 #include <vector>
-#include "entity.h"
-
-#ifndef CPORTA
-#include "sdl_presentation.h"
-#else
-//TODO: include JPORTA presentation facade
-#endif
+#include "game_object.h"
+#include "presentation.h"
 
 class Game {
 public:
@@ -36,7 +31,7 @@ private:
 	IPresentationFacade* _presentation;
 	bool _isRunning;
 	double _lastTime;
-	std::vector<Entity*> _entities;
+	std::vector<GameObject*> _entities;
 };
 
 #endif

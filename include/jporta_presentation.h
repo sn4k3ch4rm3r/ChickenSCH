@@ -1,16 +1,14 @@
-#ifndef SDL_INTERFACE_H
-#define SDL_INTERFACE_H
+#ifndef JPORTA_PRESENTATION_H
+#define JPORTA_PRESENTATION_H
 
-#include <SDL.h>
-#include <string>
 #include "presentation.h"
 #include "texture.h"
 #include "vector2.h"
 
-class SDLPresentationFacade : public IPresentationFacade {
+class JPortaPresentationFacade : public IPresentationFacade {
 public:
-	SDLPresentationFacade(const char* title, int width, int height);
-	~SDLPresentationFacade();
+	JPortaPresentationFacade(const char* title, int width, int height);
+	~JPortaPresentationFacade();
 
 	Texture* loadTexture(const char* path) override;
 	void renderTexture(const Texture* texture, const Vector2& position) override;
@@ -20,10 +18,6 @@ public:
 	void handleEvents() override;
 	bool isRunning() override;
 	InputProvider* getInputProvider() override;
-
-private:
-	SDL_Window* _window;
-	SDL_Renderer* _renderer;
 };
 
 #endif

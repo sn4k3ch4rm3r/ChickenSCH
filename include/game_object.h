@@ -1,14 +1,14 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#ifndef GAME_OBJECT_H
+#define GAME_OBJECT_H
 
 #include "texture.h"
 #include "vector2.h"
 
-class Entity {
+class GameObject {
 
 public:
-	Entity();
-	virtual ~Entity(){};
+	GameObject();
+	virtual ~GameObject(){};
 
 	virtual void render();
 	virtual void update();

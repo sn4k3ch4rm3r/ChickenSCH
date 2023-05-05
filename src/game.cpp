@@ -1,13 +1,13 @@
 #include <iostream>
-#include <queue>
 
 #ifndef CPORTA
 #include "sdl_presentation.h"
 #else
-//TODO: include JPORTA presentation facade
+#include "jporta_presentation.h"
 #endif
 
 #include "game.h"
+#include "game_object.h"
 #include "player.h"
 #include "texture.h"
 
@@ -19,8 +19,11 @@ Game& Game::getInstance() {
 Game::Game()
     : _isRunning(false) {
 
-	// TODO: Either add a prepocessor or outsource to a factory
+#ifndef CPORTA
 	_presentation = new SDLPresentationFacade("ChickenSCH", _width, _height);
+#else
+	_presentation = new JPortaPresentationFacade("ChickenSCH", _width, _height);
+#endif
 
 	_entities.push_back(new Player(_width / 2, _height - 24));
 	_isRunning = true;

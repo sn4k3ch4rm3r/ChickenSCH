@@ -18,6 +18,10 @@ public:
 	virtual void handleEvents() = 0;
 	virtual bool isRunning() = 0;
 	virtual InputProvider* getInputProvider() = 0;
+
+protected:
+	InputProvider* _inputProvider;
+	bool _isRunning;
 };
 
 #endif

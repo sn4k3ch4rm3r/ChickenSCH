@@ -41,3 +41,6 @@ $(PROG): $(addprefix $(OBJDIR)/, $(OBJECTS))
 
 clean:
 	$(RM) $(BUILDDIR)
+
+uml:
+	hpp2plantuml -i "include/*" -o "docs/classdiagram.puml"

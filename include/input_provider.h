@@ -6,7 +6,7 @@
 class InputProvider {
 public:
 	virtual ~InputProvider() {}
-	virtual Vector2 getMovementDirection() = 0;
+	virtual Vector2 getMovementDirection() const = 0;
 };
 
 #endif

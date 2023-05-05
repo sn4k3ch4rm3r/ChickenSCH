@@ -2,7 +2,7 @@
 #include "game.h"
 
 Player::Player(int x, int y)
-    : Entity() {
+    : GameObject() {
 	_texture = Game::getInstance().getPresentation()->loadTexture("assets/ship.png");
 	_position = Vector2(x, y);
 }
@@ -10,5 +10,5 @@ Player::Player(int x, int y)
 void Player::update() {
 	_velocity = Game::getInstance().getPresentation()->getInputProvider()->getMovementDirection() * 200;
 
-	Entity::update();
+	GameObject::update();
 }
