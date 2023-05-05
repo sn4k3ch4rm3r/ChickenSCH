@@ -8,6 +8,7 @@ Player::Player(int x, int y)
 }
 
 void Player::update() {
+
 	_velocity = Game::getInstance().getPresentation()->getInputProvider()->getMovementDirection() * 200;
 
 	GameObject::update();

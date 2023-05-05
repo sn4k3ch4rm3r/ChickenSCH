@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include "vector2.h"
 
-Vector2 SDLInputProvider::getMovementDirection() {
+Vector2 SDLInputProvider::getMovementDirection() const {
 	int dir = 0;
 	const Uint8* state = SDL_GetKeyboardState(NULL);
 	if (state[SDL_SCANCODE_A]) {

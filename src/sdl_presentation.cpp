@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <SDL_Image.h>
 #include "sdl_input_provider.h"
+#include "sdl_texture.h"
 
 SDLPresentationFacade::SDLPresentationFacade(const char* title, int width, int height) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -34,8 +35,8 @@ void SDLPresentationFacade::renderTexture(const Texture* texture, const Vector2&
 	destination.x = position.getX();
 	destination.y = position.getY();
 	Size size = texture->getSize();
-	destination.w = size.width;
-	destination.h = size.height;
+	destination.w = size.getWidth();
+	destination.h = size.getHeight();
 	SDL_RenderCopy(_renderer, dynamic_cast<const SDLTexture*>(texture)->getTexture(), NULL, &destination);
 }
 

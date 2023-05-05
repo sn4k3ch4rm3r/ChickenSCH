@@ -45,6 +45,10 @@ Vector2 operator*(double scalar, const Vector2& v) {
 	return v * scalar;
 }
 
+Vector2 Vector2::operator/(double scalar) const {
+	return Vector2(x / scalar, y / scalar);
+}
+
 std::ostream& operator<<(std::ostream& os, const Vector2& v) {
 	os << "Vector2(" << v.x << ", " << v.y << ")";
 	return os;

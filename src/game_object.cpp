@@ -26,5 +26,6 @@ void GameObject::setVelocity(const Vector2& velocity) {
 }
 
 void GameObject::render() {
-	Game::getInstance().getPresentation()->renderTexture(_texture, Vector2(_position.getX() - _texture->getSize().width / 2, _position.getY() - _texture->getSize().height / 2));
+	// std::cout << _texture->getSize() / 2 << std::endl;
+	Game::getInstance().getPresentation()->renderTexture(_texture, _position - (_texture->getSize() / 2));
 }

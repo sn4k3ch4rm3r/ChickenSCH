@@ -4,7 +4,7 @@
 #include <iostream>
 
 class Vector2 {
-private:
+protected:
 	double x, y;
 
 public:
@@ -12,17 +12,31 @@ public:
 	Vector2(const Vector2& v);
 	Vector2(double x, double y);
 
-	double getX() const;
-	double getY() const;
+	virtual double getX() const;
+	virtual double getY() const;
 
 	Vector2 operator+(const Vector2& v) const;
 	Vector2& operator+=(const Vector2& v);
 	Vector2 operator-(const Vector2& v) const;
 	Vector2& operator-=(const Vector2& v);
 	Vector2 operator*(double scalar) const;
+	Vector2 operator/(double scalar) const;
 
 	friend Vector2 operator*(double scalar, const Vector2& v);
 	friend std::ostream& operator<<(std::ostream& os, const Vector2& v);
+};
+
+class Size : public Vector2 {
+public:
+	Size(double width = 0, double height = 0)
+	    : Vector2(width, height) {}
+
+	double getWidth() const { return Vector2::getX(); }
+	double getHeight() const { return Vector2::getY(); }
+
+private:
+	double getX() = delete;
+	double getY() = delete;
 };
 
 #endif
