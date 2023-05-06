@@ -1,0 +1,10 @@
+{% extends 'default.puml' %}
+
+{% block preamble %}
+
+title "ChickenSCH - Class Diagram"
+
+hide circle
+skinparam ClassAttributeIconSize 0
+
+{% endblock %}

@@ -7,10 +7,10 @@
 #include "texture.h"
 #include "vector2.h"
 
-class SDLPresentationFacade : public IPresentationFacade {
+class SDLPresentation : public IPresentation {
 public:
-	SDLPresentationFacade(const char* title, int width, int height);
-	~SDLPresentationFacade();
+	SDLPresentation(const char* title, int width, int height);
+	~SDLPresentation();
 
 	Texture* loadTexture(const char* path) override;
 	void renderTexture(const Texture* texture, const Vector2& position) override;

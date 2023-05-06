@@ -6,9 +6,9 @@
 #include "texture.h"
 #include "vector2.h"
 
-class IPresentationFacade {
+class IPresentation {
 public:
-	virtual ~IPresentationFacade() {}
+	virtual ~IPresentation() {}
 
 	virtual Texture* loadTexture(const char* path) = 0;
 	virtual void renderTexture(const Texture* texture, const Vector2& position) = 0;

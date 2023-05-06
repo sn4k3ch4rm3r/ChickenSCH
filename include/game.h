@@ -3,34 +3,22 @@
 
 #include <vector>
 #include "game_object.h"
-#include "presentation.h"
+#include "level_manager.h"
+#include "scene.h"
 
-class Game {
+class Game : public Scene {
 public:
-	static Game& getInstance();
-	Game(const Game&) = delete;
-	Game& operator=(const Game&) = delete;
+	Game();
 	~Game();
 
-	void gameLoop();
-	void handleEvents();
-	void render();
-	void update();
+	void render() override;
+	void update() override;
 
-	double getDeltaTime() const;
-	double getWidth() const;
-	double getHeight() const;
-	IPresentationFacade* getPresentation() const;
+	LevelManager& getLevelManager();
 
 private:
-	Game();
-	static Game _instance;
-	double _deltaTime;
-	const int _width = 320;
-	const int _height = 180;
-	IPresentationFacade* _presentation;
-	bool _isRunning;
-	double _lastTime;
+	LevelManager _levelManager;
+	bool _isGameOver;
 	std::vector<GameObject*> _entities;
 };
 

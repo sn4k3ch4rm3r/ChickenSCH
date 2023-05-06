@@ -5,10 +5,10 @@
 #include "texture.h"
 #include "vector2.h"
 
-class JPortaPresentationFacade : public IPresentationFacade {
+class JPortaPresentation : public IPresentation {
 public:
-	JPortaPresentationFacade(const char* title, int width, int height);
-	~JPortaPresentationFacade();
+	JPortaPresentation(const char* title, int width, int height);
+	~JPortaPresentation();
 
 	Texture* loadTexture(const char* path) override;
 	void renderTexture(const Texture* texture, const Vector2& position) override;
