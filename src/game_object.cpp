@@ -5,6 +5,10 @@
 GameObject::GameObject()
     : _position(0, 0), _velocity(0, 0), _texture(nullptr) {}
 
+GameObject::~GameObject() {
+	delete _texture;
+}
+
 void GameObject::update() {
 	_position += _velocity * SceneManager::getInstance().getDeltaTime();
 }

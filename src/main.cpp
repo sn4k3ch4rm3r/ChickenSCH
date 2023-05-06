@@ -1,5 +1,7 @@
 #include "scene_manager.h"
 
+#include "memtrace.h"
+
 int main(int argc, char* argv[]) {
 
 	SceneManager& scene_manager = SceneManager::getInstance();

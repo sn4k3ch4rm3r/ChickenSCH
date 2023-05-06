@@ -9,10 +9,6 @@ Projectile::Projectile(const Vector2& position, const Vector2& velocity, Project
 	_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/laser.png");
 }
 
-Projectile::~Projectile() {
-	delete _texture;
-}
-
 void Projectile::update() {
 	if (_position.getY() < 0) {
 		static_cast<Game*>(SceneManager::getInstance().getCurrentScene())->removeEntity(this);

@@ -12,7 +12,6 @@ enum ProjectileType {
 class Projectile : public GameObject {
 public:
 	Projectile(const Vector2& position, const Vector2& velocity, ProjectileType type);
-	~Projectile();
 
 	void update() override;
 };

@@ -29,6 +29,7 @@ SDLPresentation::SDLPresentation(const char* title, int width, int height) {
 SDLPresentation::~SDLPresentation() {
 	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
+	delete _inputProvider;
 }
 
 void SDLPresentation::renderTexture(const Texture* texture, const Vector2& position) {

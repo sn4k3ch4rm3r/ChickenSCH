@@ -3,7 +3,7 @@ SRCDIR := src
 BUILDDIR := build
 OBJDIR := $(BUILDDIR)/obj
 TARGET := $(BUILDDIR)/bin
-CXXFLAGS := -Wall -Werror -std=c++11
+CXXFLAGS := -Wall -Werror -std=c++11 -DMEMTRACE
 INCLUDE := -I include
 LIB := -lSDL2_gfx -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 OBJECTS := $(patsubst $(SRCDIR)/%.cpp, %.o, $(wildcard $(SRCDIR)/*.cpp))
