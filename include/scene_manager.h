@@ -21,6 +21,7 @@ public:
 	IPresentation* getPresentation() const { return _presentation; }
 	bool isRunning() const { return _presentation->isRunning(); }
 	Size getSize() const { return _size; }
+	Scene* getCurrentScene() const { return _currentScene; }
 
 private:
 	SceneManager();

@@ -1,4 +1,6 @@
 #include "game.h"
+#include <algorithm>
+#include <vector>
 #include "game_object.h"
 #include "player.h"
 #include "presentation.h"
@@ -31,4 +33,12 @@ void Game::render() {
 		entity->render();
 	}
 	_presentation->renderScreen();
+}
+
+void Game::addEntity(GameObject* entity) {
+	_entities.push_back(entity);
+}
+
+void Game::removeEntity(GameObject* entity) {
+	_entities.erase(std::remove(_entities.begin(), _entities.end(), entity), _entities.end());
 }

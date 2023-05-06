@@ -13,3 +13,17 @@ Vector2 SDLInputProvider::getMovementDirection() const {
 	}
 	return Vector2(dir, 0);
 }
+
+bool SDLInputProvider::isShooting() {
+	const Uint8* state = SDL_GetKeyboardState(NULL);
+	bool trying = state[SDL_SCANCODE_SPACE];
+	if (trying && _canShoot) {
+		_canShoot = false;
+		return true;
+	}
+	return false;
+}
+
+void SDLInputProvider::setCanShoot(bool canShoot) {
+	_canShoot = canShoot;
+}

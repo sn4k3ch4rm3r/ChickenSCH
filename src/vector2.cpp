@@ -1,4 +1,5 @@
 #include "vector2.h"
+#include <cmath>
 
 Vector2::Vector2()
     : x(0), y(0) {}
@@ -15,6 +16,19 @@ double Vector2::getX() const {
 
 double Vector2::getY() const {
 	return y;
+}
+
+void Vector2::setX(double x) {
+	this->x = x;
+}
+
+void Vector2::setY(double y) {
+	this->y = y;
+}
+
+Vector2 Vector2::rotate(double angle) const {
+	double rad = angle * (3.141 / 180);
+	return Vector2(x * cos(rad) - y * sin(rad), x * sin(rad) + y * cos(rad));
 }
 
 Vector2 Vector2::operator+(const Vector2& other) const {

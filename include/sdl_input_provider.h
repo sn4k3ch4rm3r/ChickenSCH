@@ -6,7 +6,15 @@
 
 class SDLInputProvider : public InputProvider {
 public:
+	SDLInputProvider()
+	    : _canShoot(true){};
+
 	Vector2 getMovementDirection() const override;
+	bool isShooting() override;
+	void setCanShoot(bool canShoot) override;
+
+private:
+	bool _canShoot;
 };
 
 #endif

@@ -14,6 +14,10 @@ public:
 
 	virtual double getX() const;
 	virtual double getY() const;
+	void setX(double x);
+	void setY(double y);
+
+	Vector2 rotate(double angle) const;
 
 	Vector2 operator+(const Vector2& v) const;
 	Vector2& operator+=(const Vector2& v);

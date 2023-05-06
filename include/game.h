@@ -15,6 +15,8 @@ public:
 	void update() override;
 
 	LevelManager& getLevelManager();
+	void addEntity(GameObject* entity);
+	void removeEntity(GameObject* entity);
 
 private:
 	LevelManager _levelManager;

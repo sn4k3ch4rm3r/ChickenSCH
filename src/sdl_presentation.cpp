@@ -66,6 +66,9 @@ void SDLPresentation::handleEvents() {
 		if (event.type == SDL_QUIT) {
 			_isRunning = false;
 		}
+		if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_SPACE) {
+			_inputProvider->setCanShoot(true);
+		}
 	}
 }
 
