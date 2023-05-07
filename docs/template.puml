@@ -5,6 +5,7 @@
 title "ChickenSCH - Class Diagram"
 
 hide circle
+remove @unlinked
 skinparam ClassAttributeIconSize 0
 
 {% endblock %}

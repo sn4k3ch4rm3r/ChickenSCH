@@ -6,7 +6,8 @@
 
 enum ProjectileType {
 	LASER,
-	EGG
+	EGG,
+	POWERUP
 };
 
 class Projectile : public GameObject {
