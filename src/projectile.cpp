@@ -2,10 +2,11 @@
 #include "game.h"
 #include "scene_manager.h"
 
-Projectile::Projectile(const Vector2& position, const Vector2& velocity, CollisionTag type)
+Projectile::Projectile(const Vector2& position, const Vector2& velocity, CollisionTag tag)
     : GameObject(position) {
 	_velocity = velocity;
-	switch (type) {
+	_tag = tag;
+	switch (tag) {
 		case PLAYER:
 			_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/laser.png");
 			break;
@@ -18,11 +19,12 @@ Projectile::Projectile(const Vector2& position, const Vector2& velocity, Collisi
 	}
 }
 
-void Projectile::update() {
-	if (_position.getY() < -10 || _position.getY() > SceneManager::getInstance().getSize().getHeight() + 10) {
-		static_cast<Game*>(SceneManager::getInstance().getCurrentScene())->removeEntity(this);
-		delete this;
-		return;
+bool Projectile::checkCollision(const GameObject* other) const {
+	if (other->isProjectile()) {
+		return false;
 	}
-	GameObject::update();
+	if (other->getTag() == ENEMY && _tag == POWERUP) {
+		return false;
+	}
+	return GameObject::checkCollision(other);
 }

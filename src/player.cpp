@@ -6,6 +6,7 @@
 Player::Player(const Vector2& position)
     : GameObject(position) {
 	_health = 3;
+	_tag = PLAYER;
 	_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/ship.png");
 }
 

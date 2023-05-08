@@ -24,8 +24,25 @@ Game::~Game() {
 }
 
 void Game::update() {
-	for (size_t i = 0; i < _entities.size(); i++) {
-		_entities[i]->update();
+	for (auto it = _entities.begin(); it != _entities.end(); it++) {
+		for (auto it2 = it; it2 != _entities.end(); it2++) {
+			if (it != it2 && (*it)->checkCollision(*it2)) {
+				(*it)->onCollision(*it2);
+				(*it2)->onCollision(*it);
+			}
+		}
+	}
+
+	_entities.remove_if([](GameObject* entity) {
+		bool shouldRemove = !entity->isAlive() || entity->getPosition().getY() < -10 || entity->getPosition().getY() > SceneManager::getInstance().getSize().getHeight() + 10;
+		if (shouldRemove) {
+			delete entity;
+		}
+		return shouldRemove;
+	});
+
+	for (auto it = _entities.begin(); it != _entities.end(); it++) {
+		(*it)->update();
 	}
 	_nextScene = this;
 }
@@ -44,5 +61,7 @@ void Game::addEntity(GameObject* entity) {
 }
 
 void Game::removeEntity(GameObject* entity) {
-	_entities.erase(std::remove(_entities.begin(), _entities.end(), entity), _entities.end());
+	// _entities.erase(std::remove(_entities.begin(), _entities.end(), entity), _entities.end());
+	_entities.remove(entity);
+	delete entity;
 }

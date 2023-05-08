@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <vector>
+#include <list>
 #include "game_object.h"
 #include "levels.h"
 #include "scene.h"
@@ -20,7 +20,7 @@ public:
 private:
 	bool _isGameOver;
 	Level* _levels[4];
-	std::vector<GameObject*> _entities;
+	std::list<GameObject*> _entities;
 };
 
 #endif

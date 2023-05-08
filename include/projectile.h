@@ -8,7 +8,8 @@ class Projectile : public GameObject {
 public:
 	Projectile(const Vector2& position, const Vector2& velocity, CollisionTag tag);
 
-	void update() override;
+	bool checkCollision(const GameObject* other) const override;
+	bool isProjectile() const override { return true; }
 };
 
 #endif
