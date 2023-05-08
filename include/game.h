@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "game_object.h"
-#include "level_manager.h"
+#include "levels.h"
 #include "scene.h"
 
 class Game : public Scene {
@@ -14,13 +14,12 @@ public:
 	void render() override;
 	void update() override;
 
-	LevelManager& getLevelManager();
 	void addEntity(GameObject* entity);
 	void removeEntity(GameObject* entity);
 
 private:
-	LevelManager _levelManager;
 	bool _isGameOver;
+	Level* _levels[4];
 	std::vector<GameObject*> _entities;
 };
 

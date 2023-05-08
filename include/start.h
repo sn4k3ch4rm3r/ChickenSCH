@@ -10,7 +10,6 @@ public:
 
 	void update() override;
 	void render() override;
-	void handleEvents() override;
 };
 
 #endif

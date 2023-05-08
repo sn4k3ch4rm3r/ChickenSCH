@@ -1,7 +1,9 @@
 #include "game.h"
 #include <algorithm>
 #include <vector>
+#include "chickens.h"
 #include "game_object.h"
+#include "levels.h"
 #include "player.h"
 #include "presentation.h"
 #include "scene_manager.h"
@@ -10,7 +12,9 @@
 Game::Game()
     : _isGameOver(false) {
 	Size _size = SceneManager::getInstance().getSize();
-	_entities.push_back(new Player(_size.getWidth() / 2, _size.getHeight() - 24));
+	_entities.push_back(new Player(Vector2(_size.getWidth() / 2, _size.getHeight() - 24)));
+	OrderedLevel level = OrderedLevel();
+	level(this);
 }
 
 Game::~Game() {

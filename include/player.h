@@ -7,7 +7,7 @@
 
 class Player : public GameObject {
 public:
-	Player(int x = 0, int y = 0);
+	Player(const Vector2& position);
 	void update() override;
 
 private:

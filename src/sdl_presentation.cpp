@@ -1,5 +1,6 @@
 #include "sdl_presentation.h"
 #include <SDL.h>
+#include <SDL2_gfxPrimitives.h>
 #include <SDL_Image.h>
 #include "sdl_input_provider.h"
 #include "sdl_texture.h"
@@ -9,7 +10,7 @@ SDLPresentation::SDLPresentation(const char* title, int width, int height) {
 		std::cerr << "Error while initializing SDL: " << SDL_GetError() << std::endl;
 	}
 
-	_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width * 4, height * 4, SDL_WINDOW_SHOWN);
+	_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
 	if (_window == NULL) {
 		std::cerr << "Error while creating window: " << SDL_GetError() << std::endl;
 	}
@@ -19,7 +20,7 @@ SDLPresentation::SDLPresentation(const char* title, int width, int height) {
 		std::cerr << "Error while creating renderer: " << SDL_GetError() << std::endl;
 	}
 
-	// SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	SDL_RenderSetLogicalSize(_renderer, width, height);
 
 	_inputProvider = new SDLInputProvider();
@@ -54,6 +55,7 @@ void SDLPresentation::clearScreen() {
 }
 
 void SDLPresentation::renderScreen() {
+	SDL_SetRenderDrawColor(_renderer, 34, 32, 54, 255);
 	SDL_RenderPresent(_renderer);
 }
 

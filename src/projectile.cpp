@@ -2,15 +2,14 @@
 #include "game.h"
 #include "scene_manager.h"
 
-Projectile::Projectile(const Vector2& position, const Vector2& velocity, ProjectileType type)
-    : GameObject() {
-	_position = position;
+Projectile::Projectile(const Vector2& position, const Vector2& velocity, CollisionTag type)
+    : GameObject(position) {
 	_velocity = velocity;
 	switch (type) {
-		case LASER:
+		case PLAYER:
 			_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/laser.png");
 			break;
-		case EGG:
+		case ENEMY:
 			_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/egg.png");
 			break;
 		case POWERUP:

@@ -5,6 +5,9 @@
 GameObject::GameObject()
     : _position(0, 0), _velocity(0, 0), _texture(nullptr) {}
 
+GameObject::GameObject(const Vector2& position)
+    : _position(position), _velocity(0, 0), _texture(nullptr) {}
+
 GameObject::~GameObject() {
 	delete _texture;
 }

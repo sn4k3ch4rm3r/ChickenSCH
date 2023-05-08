@@ -15,7 +15,7 @@ SceneManager& SceneManager::getInstance() {
 }
 
 SceneManager::SceneManager()
-    : _size(320, 180), _currentScene(nullptr), _deltaTime(std::chrono::nanoseconds(0)), _lastTime(std::chrono::high_resolution_clock::now()), _presentation(nullptr) {
+    : _size(400, 300), _currentScene(nullptr), _deltaTime(std::chrono::nanoseconds(0)), _lastTime(std::chrono::high_resolution_clock::now()), _presentation(nullptr) {
 #ifndef CPORTA
 	_presentation = new SDLPresentation("ChickenSCH", _size.getWidth(), _size.getHeight());
 #else

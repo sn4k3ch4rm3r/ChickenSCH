@@ -3,10 +3,10 @@
 #include "projectile.h"
 #include "scene_manager.h"
 
-Player::Player(int x, int y)
-    : GameObject() {
+Player::Player(const Vector2& position)
+    : GameObject(position) {
+	_health = 3;
 	_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/ship.png");
-	_position = Vector2(x, y);
 }
 
 void Player::update() {
