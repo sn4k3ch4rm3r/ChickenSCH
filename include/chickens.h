@@ -25,6 +25,9 @@ public:
 	RandomChicken();
 
 	void update() override;
+
+private:
+	int _direction;
 };
 
 class DescendingChicken : public Chicken {
@@ -32,6 +35,10 @@ public:
 	DescendingChicken();
 
 	void update() override;
+
+private:
+	int _direction;
+	int _startingX;
 };
 
 #endif

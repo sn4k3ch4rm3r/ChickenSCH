@@ -20,7 +20,7 @@ void Chicken::update() {
 
 void Chicken::onCollision(const GameObject* other) {
 	GameObject::onCollision(other);
-	if (_health <= 0 && other->getTag() != POWERUP) {
+	if (_health <= 0 && other->getTag() != POWERUP && (double)rand() / RAND_MAX < 0.01) {
 		static_cast<Game*>(SceneManager::getInstance().getCurrentScene())->addEntity(new Projectile(_position, Vector2(0, 60), POWERUP));
 	}
 }

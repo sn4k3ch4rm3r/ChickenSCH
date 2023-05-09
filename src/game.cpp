@@ -25,10 +25,9 @@ Game::~Game() {
 
 void Game::update() {
 	for (auto it = _entities.begin(); it != _entities.end(); it++) {
-		for (auto it2 = it; it2 != _entities.end(); it2++) {
+		for (auto it2 = _entities.begin(); it2 != _entities.end(); it2++) {
 			if (it != it2 && (*it)->checkCollision(*it2)) {
 				(*it)->onCollision(*it2);
-				(*it2)->onCollision(*it);
 			}
 		}
 	}

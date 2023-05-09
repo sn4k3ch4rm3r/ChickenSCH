@@ -6,7 +6,7 @@ class Game;
 class Level {
 public:
 	Level();
-	virtual void operator()(Game* game) = 0;
+	virtual int operator()(Game* game) = 0;
 	int getDifficulty() const;
 	void increaseDifficulty();
 
@@ -16,17 +16,17 @@ private:
 
 class OrderedLevel : public Level {
 public:
-	void operator()(Game* game) override;
+	int operator()(Game* game) override;
 };
 
 class RandomLevel : public Level {
 public:
-	void operator()(Game* game) override;
+	int operator()(Game* game) override;
 };
 
 class OrderedDescendingLevel : public Level {
 public:
-	void operator()(Game* game) override;
+	int operator()(Game* game) override;
 };
 
 #endif

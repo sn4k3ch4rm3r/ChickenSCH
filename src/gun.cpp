@@ -4,7 +4,7 @@
 #include "scene_manager.h"
 
 Gun::Gun()
-    : _level(7) {}
+    : _level(0) {}
 
 void Gun::upgrade() {
 	if (_level < 7) {

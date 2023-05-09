@@ -23,7 +23,7 @@ bool Projectile::checkCollision(const GameObject* other) const {
 	if (other->isProjectile()) {
 		return false;
 	}
-	if (other->getTag() == ENEMY && _tag == POWERUP) {
+	if ((other->getTag() == ENEMY && _tag == POWERUP)) {
 		return false;
 	}
 	return GameObject::checkCollision(other);

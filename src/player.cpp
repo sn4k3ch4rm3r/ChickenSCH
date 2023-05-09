@@ -26,3 +26,11 @@ void Player::update() {
 	}
 	GameObject::update();
 }
+
+void Player::onCollision(const GameObject* other) {
+	if (other->getTag() == POWERUP) {
+		_gun.upgrade();
+		return;
+	}
+	GameObject::onCollision(other);
+}

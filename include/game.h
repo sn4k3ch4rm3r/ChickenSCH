@@ -21,6 +21,8 @@ private:
 	bool _isGameOver;
 	Level* _levels[4];
 	std::list<GameObject*> _entities;
+	int _score;
+	int _curretnLevel;
 };
 
 #endif
