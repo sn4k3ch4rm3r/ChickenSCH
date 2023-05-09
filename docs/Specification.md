@@ -1,4 +1,4 @@
-# Chicken Invaders - Specifikáció
+# Specifikáció
 
 ## A játék lényege
 A Space Invaders-hez hasonló játék, csak itt űrlények helyett csirkékkel kell megküzdenünk. A játék végtelen, a legmagasabb pontszám elérése a cél.
