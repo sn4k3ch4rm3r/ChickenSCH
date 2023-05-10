@@ -18,6 +18,10 @@ public:
 	void handleEvents() override;
 	bool isRunning() override;
 	InputProvider* getInputProvider() override;
+
+private:
+	InputProvider* _inputProvider;
+	bool _isRunning;
 };
 
 #endif

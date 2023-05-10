@@ -22,6 +22,8 @@ public:
 	InputProvider* getInputProvider() override;
 
 private:
+	InputProvider* _inputProvider;
+	bool _isRunning;
 	SDL_Window* _window;
 	SDL_Renderer* _renderer;
 };
