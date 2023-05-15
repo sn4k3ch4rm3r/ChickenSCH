@@ -41,8 +41,20 @@ $(PROG): $(addprefix $(OBJDIR)/, $(OBJECTS))
 
 clean:
 	$(RM) $(BUILDDIR)
+	$(MAKE) -C docs/ clean
 
 uml: setupdirs
 	if not exist "build/docs" mkdir "build/docs"
-	hpp2plantuml -i "include/*" -o "build/docs/classdiagram.puml" -t docs/template.puml
+	hpp2plantuml -i "include/*" -o "build/docs/classdiagram.puml" -t docs/diagrams/src/template.puml
 	code "build/docs/classdiagram.puml"
+
+pdf: 
+	$(MAKE) -C docs/
+
+jporta: setupdirs pdf
+	if not exist "build/jporta" mkdir "build/jporta"
+	xcopy /Y /E src\\* build\\jporta\\
+	xcopy /Y /E include\\* build\\jporta\\
+	xcopy /Y docs\\build\\dokumentacio.pdf build\\jporta\\
+
+

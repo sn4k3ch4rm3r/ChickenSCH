@@ -1,6 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include "leaderboard.h"
 #include "scene.h"
 
 class Start : public Scene {
@@ -10,6 +11,9 @@ public:
 
 	void update() override;
 	void render() override;
+
+private:
+	LeaderBoard _leaderboard;
 };
 
 #endif

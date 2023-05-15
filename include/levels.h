@@ -6,6 +6,7 @@ class Game;
 class Level {
 public:
 	Level();
+	virtual ~Level() = default;
 	virtual int operator()(Game* game) = 0;
 	int getDifficulty() const;
 	void increaseDifficulty();

@@ -10,16 +10,19 @@
 #include "texture.h"
 
 Game::Game()
-    : _isGameOver(false) {
+    : _isGameOver(false), _score(0), _curretnLevel(-1), _activeEnemies(0) {
 	Size _size = SceneManager::getInstance().getSize();
 	_entities.push_back(new Player(Vector2(_size.getWidth() / 2, _size.getHeight() - 24)));
-	OrderedLevel level = OrderedLevel();
-	level(this);
+	_levels.push_back(new OrderedLevel());
+	_levels.push_back(new OrderedLevel());
 }
 
 Game::~Game() {
 	for (auto& entity : _entities) {
 		delete entity;
+	}
+	for (auto& level : _levels) {
+		delete level;
 	}
 }
 
@@ -32,9 +35,13 @@ void Game::update() {
 		}
 	}
 
-	_entities.remove_if([](GameObject* entity) {
+	_entities.remove_if([this](GameObject* entity) {
 		bool shouldRemove = !entity->isAlive() || entity->getPosition().getY() < -10 || entity->getPosition().getY() > SceneManager::getInstance().getSize().getHeight() + 10;
+
 		if (shouldRemove) {
+			if (entity->getTag() == ENEMY && !entity->isProjectile()) {
+				_activeEnemies--;
+			}
 			delete entity;
 		}
 		return shouldRemove;
@@ -43,6 +50,13 @@ void Game::update() {
 	for (auto it = _entities.begin(); it != _entities.end(); it++) {
 		(*it)->update();
 	}
+
+	if (_activeEnemies == 0) {
+		_levels[_curretnLevel % _levels.size()]->increaseDifficulty();
+		_curretnLevel++;
+		_activeEnemies = (*_levels[_curretnLevel % _levels.size()])(this);
+	}
+
 	_nextScene = this;
 }
 
