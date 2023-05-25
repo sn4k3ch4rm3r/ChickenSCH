@@ -2,6 +2,7 @@
 #define SCENE_MANAGER_H
 
 #include <chrono>
+#include "leaderboard.h"
 #include "presentation.h"
 #include "scene.h"
 #include "vector2.h"
@@ -22,6 +23,8 @@ public:
 	bool isRunning() const { return _presentation->isRunning(); }
 	Size getSize() const { return _size; }
 	Scene* getCurrentScene() const { return _currentScene; }
+	void setCurrentScene(Scene* scene) { _currentScene = scene; }
+	LeaderBoard& getLeaderBoard() { return _leaderBoard; }
 
 private:
 	SceneManager();
@@ -33,6 +36,7 @@ private:
 	std::chrono::time_point<std::chrono::high_resolution_clock> _lastTime;
 
 	IPresentation* _presentation;
+	LeaderBoard _leaderBoard;
 };
 
 #endif

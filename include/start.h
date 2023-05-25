@@ -11,9 +11,6 @@ public:
 
 	void update() override;
 	void render() override;
-
-private:
-	LeaderBoard _leaderboard;
 };
 
 #endif

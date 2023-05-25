@@ -33,11 +33,6 @@ void SceneManager::update() {
 	_deltaTime = std::chrono::nanoseconds(std::chrono::high_resolution_clock::now() - _lastTime);
 	_lastTime = std::chrono::high_resolution_clock::now();
 	_currentScene->update();
-	Scene* _nextScene = _currentScene->nextScene();
-	if (_nextScene != _currentScene) {
-		delete _currentScene;
-	}
-	_currentScene = _nextScene;
 }
 
 void SceneManager::render() {

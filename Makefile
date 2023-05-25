@@ -3,10 +3,10 @@ SRCDIR := src
 BUILDDIR := build
 OBJDIR := $(BUILDDIR)/obj
 TARGET := $(BUILDDIR)/bin
-CXXFLAGS := -Wall -Werror -std=c++11 -DMEMTRACE
+CXXFLAGS := -Wall -Werror -std=c++17 -DMEMTRACE
 INCLUDE := -I include
 LIB := -lSDL2_gfx -lSDL2_image -lSDL2_mixer -lSDL2_ttf
-OBJECTS := $(patsubst $(SRCDIR)/%.cpp, %.o, $(wildcard $(SRCDIR)/*.cpp))
+OBJECTS := $(patsubst $(SRCDIR)/%.cpp, %.o, $(filter-out $(SRCDIR)/test.cpp $(SRCDIR)/main.cpp, $(wildcard $(SRCDIR)/*.cpp)))
 
 # Windows
 ifdef OS
@@ -30,14 +30,21 @@ default: setupdirs $(PROG)
 debug: CXXFLAGS += -g
 debug: setupdirs $(PROG)
 
+test: CXXFLAGS += -g -DCPORTA
+test: setupdirs $(PROG)_test
+
 setupdirs:
 	$(MKDIR)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -c -o $@ $<
 
-$(PROG): $(addprefix $(OBJDIR)/, $(OBJECTS))
+$(PROG): $(OBJDIR)/main.o $(addprefix $(OBJDIR)/, $(OBJECTS))
 	$(CXX) $(CXXFLAGS) -o $(TARGET)/$@ $^ $(LIB)
+
+$(PROG)_test: $(OBJDIR)/test.o $(addprefix $(OBJDIR)/, $(OBJECTS))
+	$(CXX) $(CXXFLAGS) -o $(TARGET)/$@ $^ $(LIB)
+	$(TARGET)/$@
 
 clean:
 	$(RM) $(BUILDDIR)
@@ -48,13 +55,15 @@ uml: setupdirs
 	hpp2plantuml -i "include/*" -o "build/docs/classdiagram.puml" -t docs/diagrams/src/template.puml
 	code "build/docs/classdiagram.puml"
 
-pdf: 
+pdf: docs/build/dokumentacio.pdf
+
+docs/build/dokumentacio.pdf: 
 	$(MAKE) -C docs/
 
 jporta: setupdirs pdf
 	if not exist "build/jporta" mkdir "build/jporta"
-	xcopy /Y /E src\\* build\\jporta\\
-	xcopy /Y /E include\\* build\\jporta\\
+	$(shell robocopy src build/jporta * /XF main.cpp sdl* )
+	$(shell robocopy include build/jporta * /XF sdl* )
 	xcopy /Y docs\\build\\dokumentacio.pdf build\\jporta\\
 
 

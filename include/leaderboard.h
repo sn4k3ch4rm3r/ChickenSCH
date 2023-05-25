@@ -10,12 +10,12 @@ struct LeaderBoardItem {
 
 class LeaderBoard {
 public:
-	LeaderBoard();
-	~LeaderBoard();
+	LeaderBoard() = default;
+	~LeaderBoard(){};
 	void addScore(char* name, int score);
 	void render();
-	void saveScores();
-	void loadScores();
+	void saveScores(const char* fileName = "leaderboard.txt");
+	void loadScores(const char* fileName = "leaderboard.txt");
 
 private:
 	std::vector<LeaderBoardItem> _scores;

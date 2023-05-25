@@ -7,6 +7,8 @@
 class JPortaInputProvider : public InputProvider {
 public:
 	Vector2 getMovementDirection() const override;
+	bool isShooting() const override;
+	void setCanShoot(bool canShoot) override;
 };
 
 #endif

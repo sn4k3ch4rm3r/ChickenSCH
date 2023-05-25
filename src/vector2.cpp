@@ -26,8 +26,9 @@ void Vector2::setY(double y) {
 	this->y = y;
 }
 
+const double PI = 3.14159265358979323846;
 Vector2 Vector2::rotate(double angle) const {
-	double rad = angle * (3.141 / 180);
+	double rad = angle * (PI / 180);
 	return Vector2(x * cos(rad) - y * sin(rad), x * sin(rad) + y * cos(rad));
 }
 

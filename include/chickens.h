@@ -22,7 +22,7 @@ private:
 
 class RandomChicken : public Chicken {
 public:
-	RandomChicken();
+	RandomChicken(const Vector2& position, int difficulty);
 
 	void update() override;
 
@@ -32,7 +32,7 @@ private:
 
 class DescendingChicken : public Chicken {
 public:
-	DescendingChicken();
+	DescendingChicken(const Vector2& position, int difficulty);
 
 	void update() override;
 

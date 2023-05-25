@@ -22,3 +22,12 @@ int OrderedLevel::operator()(Game* game) {
 	}
 	return 5 * 10;
 }
+
+int RandomLevel::operator()(Game* game) {
+	for (int i = 0; i < getDifficulty() * 8; i++) {
+		if ((double)rand() / RAND_MAX < 0.5) {
+			game->addEntity(new RandomChicken(Vector2(50, 50), getDifficulty()));
+		}
+	}
+	return getDifficulty() * 8;
+}

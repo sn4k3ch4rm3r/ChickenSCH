@@ -15,6 +15,7 @@ Game::Game()
 	_entities.push_back(new Player(Vector2(_size.getWidth() / 2, _size.getHeight() - 24)));
 	_levels.push_back(new OrderedLevel());
 	_levels.push_back(new OrderedLevel());
+	_levels.push_back(new RandomLevel());
 }
 
 Game::~Game() {
@@ -56,8 +57,6 @@ void Game::update() {
 		_curretnLevel++;
 		_activeEnemies = (*_levels[_curretnLevel % _levels.size()])(this);
 	}
-
-	_nextScene = this;
 }
 
 void Game::render() {

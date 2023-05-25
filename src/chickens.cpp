@@ -39,3 +39,16 @@ void OrderedChicken::update() {
 	_velocity = Vector2(50 * _direction, 0);
 	Chicken::update();
 }
+
+RandomChicken::RandomChicken(const Vector2& position, int difficlutly)
+    : Chicken(position, difficlutly), _direction((double)rand() / RAND_MAX < 0.5 ? -1 : 1) {
+	_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/pink_chicken.png");
+	_velocity = Vector2(50 * _direction, 50);
+}
+
+void RandomChicken::update() {
+	if (_position.getX() <= 0 || _position.getX() >= 320) {
+		_velocity.setX(-_velocity.getX());
+	}
+	Chicken::update();
+}

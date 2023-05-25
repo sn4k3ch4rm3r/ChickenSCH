@@ -4,8 +4,6 @@
 
 ![](diagrams/scenes.png)
 
-
-
 ## Osztálydiagram
 
-![](diagrams/classdiagram.png)
+![](diagrams/classdiagram_plan.png)

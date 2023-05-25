@@ -11,7 +11,6 @@ enum CollisionTag {
 };
 
 class GameObject {
-
 public:
 	GameObject();
 	GameObject(const Vector2& position);
