@@ -1,7 +1,7 @@
 Language: Cpp
 BasedOnStyle: Google
 AccessModifierOffset: -4
-AlignAfterOpenBracket: Align
+AlignAfterOpenBracket: BlockIndent
 AlignConsecutiveAssignments: None
 AlignOperands: Align
 AllowAllArgumentsOnNextLine: true
@@ -28,7 +28,7 @@ BraceWrapping:
   AfterUnion: false
   AfterExternBlock: false
   BeforeCatch: false
-  BeforeElse: false
+  BeforeElse: true
   BeforeLambdaBody: false
   IndentBraces: false
   SplitEmptyFunction: false
@@ -59,6 +59,8 @@ ReflowComments: false
 # SeparateDefinitionBlocks: Always   # Only support since clang-format 14
 SortIncludes: true
 IncludeCategories:
+  - Regex: '^"memtrace.h"'
+    Priority: 999
   - Regex: "^<.*>"
     Priority: 1
   - Regex: '^".*"'

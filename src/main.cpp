@@ -1,16 +1,15 @@
-#include <cstdlib>
+#include "m_random.h"
 #include "scene_manager.h"
-
 #include "memtrace.h"
 
 int main(int argc, char* argv[]) {
-	srand(time(NULL));
-	SceneManager& scene_manager = SceneManager::getInstance();
+	Random::seed();
+	SceneManager& sceneManager = SceneManager::getInstance();
 
-	while (scene_manager.isRunning()) {
-		scene_manager.handleEvents();
-		scene_manager.update();
-		scene_manager.render();
+	while (sceneManager.isRunning()) {
+		sceneManager.handleEvents();
+		sceneManager.update();
+		sceneManager.render();
 	}
 
 	return 0;

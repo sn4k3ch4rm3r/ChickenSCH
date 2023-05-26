@@ -1,6 +1,7 @@
 #include "levels.h"
 #include "chickens.h"
 #include "game.h"
+#include "m_random.h"
 #include "vector2.h"
 
 Level::Level()
@@ -17,17 +18,32 @@ void Level::increaseDifficulty() {
 int OrderedLevel::operator()(Game* game) {
 	for (size_t y = 0; y < 5; y++) {
 		for (size_t x = 0; x < 10; x++) {
-			game->addEntity(new OrderedChicken(Vector2(x * 32 + 16, y * 25 + 50), getDifficulty()));
+			game->addEntity(
+			    new OrderedChicken(
+			        Vector2(x * 32 + 16, y * 25 + 50),
+			        getDifficulty()
+			    )
+			);
 		}
 	}
 	return 5 * 10;
 }
 
 int RandomLevel::operator()(Game* game) {
+	int count = 0;
 	for (int i = 0; i < getDifficulty() * 8; i++) {
-		if ((double)rand() / RAND_MAX < 0.5) {
-			game->addEntity(new RandomChicken(Vector2(50, 50), getDifficulty()));
+		if (Random::randBool(0.5)) {
+			count++;
+			game->addEntity(
+			    new RandomChicken(
+			        Vector2(
+			            Random::randInt(10, 310),
+			            40 + Random::randInt(0, 15)
+			        ),
+			        getDifficulty()
+			    )
+			);
 		}
 	}
-	return getDifficulty() * 8;
+	return count;
 }
