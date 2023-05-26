@@ -12,6 +12,7 @@ public:
 
 	virtual Texture* loadTexture(const char* path) = 0;
 	virtual void renderTexture(const Texture* texture, const Vector2& position) = 0;
+	virtual void renderText(const char* text, const Vector2& position) = 0;
 	virtual void clearScreen() = 0;
 	virtual void renderScreen() = 0;
 	virtual void exit() = 0;

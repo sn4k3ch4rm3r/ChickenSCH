@@ -6,9 +6,7 @@
 #include "scene_manager.h"
 
 Chicken::Chicken(const Vector2& position, int difficulty)
-    : GameObject(position) {
-	_health = difficulty;
-	_tag = ENEMY;
+    : GameObject(position, ENEMY, difficulty) {
 }
 
 void Chicken::update() {

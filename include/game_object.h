@@ -30,6 +30,7 @@ public:
 	CollisionTag getTag() const { return _tag; }
 	virtual bool isProjectile() const { return false; }
 	bool isAlive() const { return _health > 0; }
+	int getHealth() const { return _health; }
 
 protected:
 	Vector2 _position;

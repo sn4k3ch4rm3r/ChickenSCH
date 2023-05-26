@@ -11,7 +11,7 @@
 #include "memtrace.h"
 
 Game::Game()
-    : _isGameOver(false), _score(0), _curretnLevel(0), _activeEnemies(0) {
+    : _isGameOver(false), _score(0), _currentLevel(0), _activeEnemies(0) {
 	Size _size = SceneManager::getInstance().getSize();
 	_entities.push_back(
 	    new Player(
@@ -21,6 +21,8 @@ Game::Game()
 	_levels.push_back(new OrderedLevel());
 	_levels.push_back(new OrderedLevel());
 	_levels.push_back(new RandomLevel());
+
+	loadNextLevel();
 }
 
 Game::~Game() {
@@ -47,6 +49,9 @@ void Game::update() {
 		if (shouldRemove) {
 			if (entity->getTag() == ENEMY && !entity->isProjectile()) {
 				_activeEnemies--;
+				if (!entity->isAlive()) {
+					_score += 100;
+				}
 			}
 			delete entity;
 		}
@@ -58,9 +63,7 @@ void Game::update() {
 	}
 
 	if (_activeEnemies == 0) {
-		_activeEnemies = (*_levels[_curretnLevel % _levels.size()])(this);
-		_levels[_curretnLevel % _levels.size()]->increaseDifficulty();
-		_curretnLevel++;
+		loadNextLevel();
 	}
 }
 
@@ -70,6 +73,8 @@ void Game::render() {
 	for (auto& entity : _entities) {
 		entity->render();
 	}
+	_presentation->renderText(("Score: " + std::to_string(_score)).c_str(), Vector2(10, 10));
+	_presentation->renderText(("Lives: " + std::to_string(_entities.front()->getHealth())).c_str(), Vector2(10, 25));
 	_presentation->renderScreen();
 }
 
@@ -77,7 +82,8 @@ void Game::addEntity(GameObject* entity) {
 	_entities.push_back(entity);
 }
 
-void Game::removeEntity(GameObject* entity) {
-	_entities.remove(entity);
-	delete entity;
+void Game::loadNextLevel() {
+	_activeEnemies = (*_levels[_currentLevel % _levels.size()])(this);
+	_levels[_currentLevel % _levels.size()]->increaseDifficulty();
+	_currentLevel++;
 }

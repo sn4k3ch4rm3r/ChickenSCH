@@ -43,6 +43,10 @@ void SDLPresentation::renderTexture(const Texture* texture, const Vector2& posit
 	SDL_RenderCopy(_renderer, dynamic_cast<const SDLTexture*>(texture)->getTexture(), NULL, &destination);
 }
 
+void SDLPresentation::renderText(const char* text, const Vector2& position) {
+	stringRGBA(_renderer, position.getX(), position.getY(), text, 255, 255, 255, 255);
+}
+
 Texture* SDLPresentation::loadTexture(const char* path) {
 	SDL_Surface* surface = IMG_Load(path);
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(_renderer, surface);

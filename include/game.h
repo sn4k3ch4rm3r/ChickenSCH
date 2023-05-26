@@ -16,14 +16,14 @@ public:
 	void update() override;
 
 	void addEntity(GameObject* entity);
-	void removeEntity(GameObject* entity);
 
 private:
+	void loadNextLevel();
 	bool _isGameOver;
 	std::vector<Level*> _levels;
 	std::list<GameObject*> _entities;
 	int _score;
-	int _curretnLevel;
+	int _currentLevel;
 	int _activeEnemies;
 };
 

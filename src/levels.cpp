@@ -5,7 +5,7 @@
 #include "vector2.h"
 
 Level::Level()
-    : _difficulty(0) {}
+    : _difficulty(1) {}
 
 int Level::getDifficulty() const {
 	return _difficulty;
