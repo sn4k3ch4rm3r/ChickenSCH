@@ -47,3 +47,18 @@ int RandomLevel::operator()(Game* game) {
 	}
 	return count;
 }
+
+// TODO: Make it properly
+int DescendingLevel::operator()(Game* game) {
+	for (int y = 0; y < getDifficulty(); y++) {
+		for (size_t x = 0; x < 10; x++) {
+			game->addEntity(
+			    new DescendingChicken(
+			        Vector2(x * 32 + 16, y * 25 + 50),
+			        getDifficulty()
+			    )
+			);
+		}
+	}
+	return getDifficulty() * 10;
+}

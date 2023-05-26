@@ -21,6 +21,7 @@ Game::Game()
 	_levels.push_back(new OrderedLevel());
 	_levels.push_back(new OrderedLevel());
 	_levels.push_back(new RandomLevel());
+	_levels.push_back(new DescendingLevel());
 
 	loadNextLevel();
 }

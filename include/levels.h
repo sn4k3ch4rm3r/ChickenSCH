@@ -25,7 +25,7 @@ public:
 	int operator()(Game* game) override;
 };
 
-class OrderedDescendingLevel : public Level {
+class DescendingLevel : public Level {
 public:
 	int operator()(Game* game) override;
 };

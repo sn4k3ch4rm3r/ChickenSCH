@@ -75,3 +75,26 @@ void RandomChicken::update() {
 	}
 	Chicken::update();
 }
+
+DescendingChicken::DescendingChicken(const Vector2& position, int health)
+    : Chicken(position, health), _startingX(position.getX()) {
+	setTexture(SceneManager::getInstance().getPresentation()->loadTexture(
+	    "assets/green_chicken.png"
+	));
+	setVelocity(
+	    Vector2(
+	        ChickenConstants::BASE_VELOCITY_X + health * ChickenConstants::SPEED_INCREASE,
+	        ChickenConstants::BASE_VELOCITY_Y
+	    )
+	);
+}
+
+void DescendingChicken::update() {
+	if (getPosition().getX() - _startingX > 80) {
+		setDirection(LEFT);
+	}
+	else if (getPosition().getX() - _startingX <= 0) {
+		setDirection(RIGHT);
+	}
+	Chicken::update();
+}
