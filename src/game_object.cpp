@@ -2,14 +2,13 @@
 #include "game.h"
 #include "scene_manager.h"
 #include "vector2.h"
+#include "memtrace.h"
 
 GameObject::GameObject()
-    : _position(0, 0), _velocity(0, 0), _texture(nullptr), _health(1) {}
+    : _position(0, 0), _velocity(0, 0), _texture(nullptr), _health(1), _tag(NONE) {}
 
-GameObject::GameObject(const Vector2& position)
-    : GameObject() {
-	_position = position;
-}
+GameObject::GameObject(const Vector2& position, CollisionTag tag, int health)
+    : _position(position), _velocity(0, 0), _texture(nullptr), _health(health), _tag(tag) {}
 
 GameObject::~GameObject() {
 	delete _texture;

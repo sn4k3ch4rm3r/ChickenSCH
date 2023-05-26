@@ -6,7 +6,7 @@
 class Chicken : public GameObject {
 public:
 	Chicken(const Vector2& position, int difficulty);
-	virtual void update();
+	virtual void update() override;
 	void onCollision(const GameObject* other) override;
 };
 

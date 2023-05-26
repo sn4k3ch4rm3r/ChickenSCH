@@ -32,7 +32,7 @@ public:
 
 class Size : public Vector2 {
 public:
-	Size(double width = 0, double height = 0)
+	explicit Size(double width = 0, double height = 0)
 	    : Vector2(width, height) {}
 
 	double getWidth() const { return Vector2::getX(); }

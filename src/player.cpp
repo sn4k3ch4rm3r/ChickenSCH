@@ -4,14 +4,13 @@
 #include "scene_manager.h"
 
 Player::Player(const Vector2& position)
-    : GameObject(position) {
+    : GameObject(position, PLAYER) {
 	_health = 3;
-	_tag = PLAYER;
 	_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/ship.png");
 }
 
 void Player::update() {
-	SceneManager& context = SceneManager::getInstance();
+	const SceneManager& context = SceneManager::getInstance();
 	_velocity = context.getPresentation()->getInputProvider()->getMovementDirection() * 200;
 
 	if ((_position - _texture->getSize() / 2).getX() < 0 && _velocity.getX() < 0) {
@@ -31,6 +30,9 @@ void Player::onCollision(const GameObject* other) {
 	if (other->getTag() == POWERUP) {
 		_gun.upgrade();
 		return;
+	}
+	if (other->getTag() == ENEMY) {
+		_gun.reset();
 	}
 	GameObject::onCollision(other);
 }

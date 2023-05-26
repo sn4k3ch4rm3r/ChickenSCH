@@ -12,6 +12,10 @@ void Gun::upgrade() {
 	}
 }
 
+void Gun::reset() {
+	_level = 0;
+}
+
 const int SPREAD = 7;
 const int SPEED = 250;
 void Gun::shoot(Vector2 position) {

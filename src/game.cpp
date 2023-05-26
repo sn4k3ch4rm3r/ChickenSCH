@@ -24,10 +24,10 @@ Game::Game()
 }
 
 Game::~Game() {
-	for (auto& entity : _entities) {
+	for (const auto& entity : _entities) {
 		delete entity;
 	}
-	for (auto& level : _levels) {
+	for (const auto& level : _levels) {
 		delete level;
 	}
 }

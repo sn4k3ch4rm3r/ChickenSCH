@@ -7,7 +7,7 @@
 
 class Player : public GameObject {
 public:
-	Player(const Vector2& position);
+	explicit Player(const Vector2& position);
 	void update() override;
 	void onCollision(const GameObject* other) override;
 

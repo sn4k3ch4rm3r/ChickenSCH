@@ -3,7 +3,7 @@ SRCDIR := src
 BUILDDIR := build
 OBJDIR := $(BUILDDIR)/obj
 TARGET := $(BUILDDIR)/bin
-CXXFLAGS := -Wall -Werror -std=c++17 -DMEMTRACE
+CXXFLAGS := -Wall -Wextra -pedantic -Werror -std=c++17 -DMEMTRACE
 INCLUDE := -I include
 LIB := -lSDL2_gfx -lSDL2_image -lSDL2_mixer -lSDL2_ttf
 OBJECTS := $(patsubst $(SRCDIR)/%.cpp, %.o, $(filter-out $(SRCDIR)/test.cpp $(SRCDIR)/main.cpp, $(wildcard $(SRCDIR)/*.cpp)))
@@ -66,4 +66,5 @@ jporta: setupdirs pdf
 	$(shell robocopy include build/jporta * /XF sdl* )
 	xcopy /Y docs\\build\\dokumentacio.pdf build\\jporta\\
 
-
+static:
+	cppcheck src/ --force --enable=all -i .\src\memtrace.cpp -i .\src\test.cpp -I include/

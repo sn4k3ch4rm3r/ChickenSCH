@@ -4,7 +4,7 @@
 
 Vector2 SDLInputProvider::getMovementDirection() const {
 	int dir = 0;
-	const Uint8* state = SDL_GetKeyboardState(NULL);
+	const Uint8* state = SDL_GetKeyboardState(nullptr);
 	if (state[SDL_SCANCODE_A]) {
 		dir -= 1;
 	}
@@ -14,9 +14,9 @@ Vector2 SDLInputProvider::getMovementDirection() const {
 	return Vector2(dir, 0);
 }
 
-bool SDLInputProvider::isShooting() {
-	const Uint8* state = SDL_GetKeyboardState(NULL);
-	bool trying = state[SDL_SCANCODE_SPACE];
+auto SDLInputProvider::isShooting() -> bool {
+	const Uint8* state = SDL_GetKeyboardState(nullptr);
+	bool trying = state[SDL_SCANCODE_SPACE] != 0;
 	if (trying && _canShoot) {
 		_canShoot = false;
 		return true;

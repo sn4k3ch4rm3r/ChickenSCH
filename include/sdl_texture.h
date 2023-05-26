@@ -7,10 +7,10 @@
 
 class SDLTexture : public Texture {
 public:
-	SDLTexture(SDL_Texture* texture)
+	explicit SDLTexture(SDL_Texture* texture)
 	    : _texture(texture) {}
 	~SDLTexture() { SDL_DestroyTexture(_texture); }
-	SDL_Texture* const getTexture() const { return _texture; }
+	SDL_Texture* getTexture() const { return _texture; }
 	Size getSize() const override {
 		int width, height;
 		SDL_QueryTexture(_texture, NULL, NULL, &width, &height);

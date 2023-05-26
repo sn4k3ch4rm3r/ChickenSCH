@@ -5,6 +5,7 @@
 #include "vector2.h"
 
 enum CollisionTag {
+	NONE,
 	PLAYER,
 	ENEMY,
 	POWERUP
@@ -13,7 +14,7 @@ enum CollisionTag {
 class GameObject {
 public:
 	GameObject();
-	GameObject(const Vector2& position);
+	explicit GameObject(const Vector2& position, CollisionTag tag = NONE, int health = 1);
 	virtual ~GameObject();
 
 	virtual void render();

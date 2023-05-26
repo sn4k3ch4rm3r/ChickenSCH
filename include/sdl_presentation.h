@@ -12,6 +12,9 @@ public:
 	SDLPresentation(const char* title, int width, int height);
 	~SDLPresentation();
 
+	SDLPresentation(const SDLPresentation&) = delete;
+	SDLPresentation& operator=(const SDLPresentation&) = delete;
+
 	Texture* loadTexture(const char* path) override;
 	void renderTexture(const Texture* texture, const Vector2& position) override;
 	void clearScreen() override;

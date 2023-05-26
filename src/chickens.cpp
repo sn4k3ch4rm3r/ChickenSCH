@@ -23,7 +23,7 @@ void Chicken::onCollision(const GameObject* other) {
 	if (
 	    _health <= 0 &&
 	    other->getTag() != POWERUP &&
-	    Random::randBool(0.01)
+	    Random::randBool(0.1)
 	) {
 		static_cast<Game*>(SceneManager::getInstance().getCurrentScene())->addEntity(new Projectile(_position, Vector2(0, 60), POWERUP));
 	}
@@ -45,8 +45,8 @@ void OrderedChicken::update() {
 	Chicken::update();
 }
 
-RandomChicken::RandomChicken(const Vector2& position, int difficlutly)
-    : Chicken(position, difficlutly), _direction(Random::randBool(0.5) ? 1 : -1) {
+RandomChicken::RandomChicken(const Vector2& position, int difficulty)
+    : Chicken(position, difficulty), _direction(Random::randBool(0.5) ? 1 : -1) {
 	_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/pink_chicken.png");
 	_velocity = Vector2(50 * _direction, 10);
 }

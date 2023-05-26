@@ -2,7 +2,7 @@
 #include "scene_manager.h"
 #include "memtrace.h"
 
-int main(int argc, char* argv[]) {
+int main() {
 	Random::seed();
 	SceneManager& sceneManager = SceneManager::getInstance();
 

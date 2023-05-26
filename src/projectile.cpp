@@ -16,6 +16,8 @@ Projectile::Projectile(const Vector2& position, const Vector2& velocity, Collisi
 		case POWERUP:
 			_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/powerup.png");
 			break;
+		case NONE:
+			break;
 	}
 }
 
