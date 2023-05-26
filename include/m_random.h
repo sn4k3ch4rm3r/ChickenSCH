@@ -15,6 +15,9 @@ public:
 	inline static bool randBool(double probability = 0.5) {
 		return (double)rand() / RAND_MAX < probability;
 	}
+	inline static double randDouble(double min, double max) {
+		return (double)rand() / RAND_MAX * (max - min) + min;
+	}
 };
 
 #endif

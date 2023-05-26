@@ -28,11 +28,14 @@ public:
 	virtual void onCollision(const GameObject* other);
 	virtual Size getSize() const { return _texture->getSize(); }
 	CollisionTag getTag() const { return _tag; }
+	void setTag(CollisionTag tag) { _tag = tag; }
 	virtual bool isProjectile() const { return false; }
 	bool isAlive() const { return _health > 0; }
 	int getHealth() const { return _health; }
+	void setTexture(Texture* texture);
+	Texture* getTexture() const { return _texture; }
 
-protected:
+private:
 	Vector2 _position;
 	Vector2 _velocity;
 	Texture* _texture;

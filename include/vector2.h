@@ -4,9 +4,6 @@
 #include <iostream>
 
 class Vector2 {
-protected:
-	double x, y;
-
 public:
 	Vector2();
 	Vector2(const Vector2& v);
@@ -28,6 +25,10 @@ public:
 
 	friend Vector2 operator*(double scalar, const Vector2& v);
 	friend std::ostream& operator<<(std::ostream& os, const Vector2& v);
+
+private:
+	double _x;
+	double _y;
 };
 
 class Size : public Vector2 {

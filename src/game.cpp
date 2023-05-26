@@ -43,6 +43,7 @@ void Game::update() {
 		}
 	}
 
+	//TODO: Move memory management out of the predicate
 	_entities.remove_if([this](GameObject* entity) {
 		bool shouldRemove = !entity->isAlive() || entity->getPosition().getY() < -10 || entity->getPosition().getY() > SceneManager::getInstance().getSize().getHeight() + 10;
 

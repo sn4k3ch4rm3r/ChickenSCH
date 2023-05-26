@@ -54,3 +54,10 @@ void GameObject::onCollision(const GameObject* other) {
 		_health--;
 	}
 }
+
+void GameObject::setTexture(Texture* texture) {
+	if (_texture != nullptr) {
+		delete _texture;
+	}
+	_texture = texture;
+}

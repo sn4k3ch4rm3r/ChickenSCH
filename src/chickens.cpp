@@ -1,61 +1,77 @@
 #include "chickens.h"
+#include <cmath>
 #include "game.h"
 #include "game_object.h"
 #include "m_random.h"
 #include "projectile.h"
 #include "scene_manager.h"
 
-Chicken::Chicken(const Vector2& position, int difficulty)
-    : GameObject(position, ENEMY, difficulty) {
-}
+Chicken::Chicken(const Vector2& position, int health)
+    : GameObject(position, ENEMY, health),
+      _eggProbability(ChickenConstants::EGG_PROBABILITY + health * ChickenConstants::EGG_INCREASE),
+      _direction(RIGHT) {}
 
 void Chicken::update() {
-	if (Random::randBool(0.001)) {
-		static_cast<Game*>(SceneManager::getInstance().getCurrentScene())->addEntity(new Projectile(_position, Vector2(0, 100), ENEMY));
+	if (Random::randBool(getEggProbability())) {
+		static_cast<Game*>(SceneManager::getInstance().getCurrentScene())->addEntity(new Projectile(getPosition(), Vector2(0, ProjectileConstants::EGG_VELOCITY), ENEMY));
 	}
-	GameObject::update();
+	setPosition(getPosition() + Vector2(getVelocity().getX() * _direction, getVelocity().getY()) * SceneManager::getInstance().getDeltaTime());
 }
 
 void Chicken::onCollision(const GameObject* other) {
 	GameObject::onCollision(other);
 	if (
-	    _health <= 0 &&
+	    getHealth() <= 0 &&
 	    other->getTag() != POWERUP &&
-	    Random::randBool(0.1)
+	    Random::randBool(ChickenConstants::POWERUP_PROBABILITY)
 	) {
-		static_cast<Game*>(SceneManager::getInstance().getCurrentScene())->addEntity(new Projectile(_position, Vector2(0, 60), POWERUP));
+		static_cast<Game*>(SceneManager::getInstance().getCurrentScene())->addEntity(new Projectile(getPosition(), Vector2(0, ProjectileConstants::POWERUP_VELOCITY), POWERUP));
 	}
 }
 
-OrderedChicken::OrderedChicken(const Vector2& position, int difficulty)
-    : Chicken(position, difficulty), _direction(-1), _startingX(position.getX()) {
-	_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/blue_chicken.png");
+OrderedChicken::OrderedChicken(const Vector2& position, int health)
+    : Chicken(position, health), _startingX(position.getX()) {
+	setTexture(SceneManager::getInstance().getPresentation()->loadTexture(
+	    "assets/blue_chicken.png"
+	));
+	setVelocity(
+	    Vector2(
+	        ChickenConstants::BASE_VELOCITY_X + health * ChickenConstants::SPEED_INCREASE,
+	        0
+	    )
+	);
 }
 
 void OrderedChicken::update() {
-	if (_position.getX() - _startingX > 80) {
-		_direction = -1;
+	if (getPosition().getX() - _startingX > 80) {
+		setDirection(LEFT);
 	}
-	else if (_position.getX() - _startingX <= 0) {
-		_direction = 1;
+	else if (getPosition().getX() - _startingX <= 0) {
+		setDirection(RIGHT);
 	}
-	_velocity = Vector2(50 * _direction, 0);
 	Chicken::update();
 }
 
-RandomChicken::RandomChicken(const Vector2& position, int difficulty)
-    : Chicken(position, difficulty), _direction(Random::randBool(0.5) ? 1 : -1) {
-	_texture = SceneManager::getInstance().getPresentation()->loadTexture("assets/pink_chicken.png");
-	_velocity = Vector2(50 * _direction, 10);
+RandomChicken::RandomChicken(const Vector2& position, int health)
+    : Chicken(position, health) {
+	setTexture(SceneManager::getInstance().getPresentation()->loadTexture(
+	    "assets/pink_chicken.png"
+	));
+	setDirection(Random::randBool() ? LEFT : RIGHT);
+	setVelocity(
+	    Vector2(
+	        ChickenConstants::BASE_VELOCITY_X * Random::randDouble(1 - ChickenConstants::SPEED_VARIATION, 1 + ChickenConstants::SPEED_VARIATION),
+	        ChickenConstants::BASE_VELOCITY_Y
+	    )
+	);
 }
 
 void RandomChicken::update() {
-	if (_position.getX() <= getSize().getWidth() / 2) {
-		_direction = 1;
+	if (getPosition().getX() <= getSize().getWidth() / 2) {
+		setDirection(RIGHT);
 	}
-	else if (_position.getX() >= SceneManager::getInstance().getSize().getWidth() - getSize().getWidth() / 2) {
-		_direction = -1;
+	else if (getPosition().getX() >= SceneManager::getInstance().getSize().getWidth() - getSize().getWidth() / 2) {
+		setDirection(LEFT);
 	}
-	_velocity.setX(50 * _direction);
 	Chicken::update();
 }
