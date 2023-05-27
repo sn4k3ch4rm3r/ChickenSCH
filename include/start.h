@@ -3,6 +3,7 @@
 
 #include "leaderboard.h"
 #include "scene.h"
+#include "texture.h"
 
 class Start : public Scene {
 public:
@@ -11,6 +12,9 @@ public:
 
 	void update() override;
 	void render() override;
+
+private:
+	Texture* _titleText;
 };
 
 #endif

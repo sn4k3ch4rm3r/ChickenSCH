@@ -71,13 +71,11 @@ void Game::update() {
 
 void Game::render() {
 	IPresentation* _presentation = SceneManager::getInstance().getPresentation();
-	_presentation->clearScreen();
 	for (auto& entity : _entities) {
 		entity->render();
 	}
 	_presentation->renderText(("Score: " + std::to_string(_score)).c_str(), Vector2(10, 10));
 	_presentation->renderText(("Lives: " + std::to_string(_entities.front()->getHealth())).c_str(), Vector2(10, 25));
-	_presentation->renderScreen();
 }
 
 void Game::addEntity(GameObject* entity) {

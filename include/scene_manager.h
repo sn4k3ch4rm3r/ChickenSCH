@@ -23,7 +23,7 @@ public:
 	bool isRunning() const { return _presentation->isRunning(); }
 	Size getSize() const { return _size; }
 	Scene* getCurrentScene() const { return _currentScene; }
-	void setCurrentScene(Scene* scene) { _currentScene = scene; }
+	void setCurrentScene(Scene* scene);
 	LeaderBoard& getLeaderBoard() { return _leaderBoard; }
 
 private:

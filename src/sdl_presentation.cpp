@@ -44,7 +44,7 @@ void SDLPresentation::renderTexture(const Texture* texture, const Vector2& posit
 }
 
 void SDLPresentation::renderText(const char* text, const Vector2& position) {
-	stringRGBA(_renderer, position.getX(), position.getY(), text, 255, 255, 255, 255);
+	stringRGBA(_renderer, position.getX(), position.getY(), text, 235, 237, 233, 255);
 }
 
 Texture* SDLPresentation::loadTexture(const char* path) {

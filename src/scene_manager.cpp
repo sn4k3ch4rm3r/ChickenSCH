@@ -1,13 +1,14 @@
 #include "scene_manager.h"
 #include <chrono>
-#include "game.h"
 #include "scene.h"
+#include "start.h"
 
 #ifndef CPORTA
 #include "sdl_presentation.h"
 #else
 #include "jporta_presentation.h"
 #endif
+#include "memtrace.h"
 
 SceneManager SceneManager::_instance;
 SceneManager& SceneManager::getInstance() {
@@ -21,10 +22,19 @@ SceneManager::SceneManager()
 #else
 	_presentation = new JPortaPresentation("ChickenSCH", _size.getWidth(), _size.getHeight());
 #endif
-	_currentScene = new Game();
+
+	std::fstream file("leaderboard.csv", std::ios::in);
+	_leaderBoard.loadScores(file);
+	file.close();
+
+	_currentScene = new Start();
 }
 
 SceneManager::~SceneManager() {
+	std::fstream file("leaderboard.csv", std::ios::out);
+	_leaderBoard.saveScores(file);
+	file.close();
+
 	delete _presentation;
 	delete _currentScene;
 }
@@ -36,7 +46,9 @@ void SceneManager::update() {
 }
 
 void SceneManager::render() {
+	_presentation->clearScreen();
 	_currentScene->render();
+	_presentation->renderScreen();
 }
 
 void SceneManager::handleEvents() {
@@ -45,4 +57,9 @@ void SceneManager::handleEvents() {
 
 double SceneManager::getDeltaTime() const {
 	return std::chrono::duration_cast<std::chrono::duration<double>>(_deltaTime).count();
+}
+
+void SceneManager::setCurrentScene(Scene* scene) {
+	delete _currentScene;
+	_currentScene = scene;
 }
