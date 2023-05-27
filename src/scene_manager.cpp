@@ -2,7 +2,8 @@
 #include <chrono>
 #include "scene.h"
 #include "start.h"
-
+//TODO: remove
+#include "game_over.h"
 #ifndef CPORTA
 #include "sdl_presentation.h"
 #else
@@ -27,7 +28,7 @@ SceneManager::SceneManager()
 	_leaderBoard.loadScores(file);
 	file.close();
 
-	_currentScene = new Start();
+	_currentScene = new GameOver(100);
 }
 
 SceneManager::~SceneManager() {
@@ -35,8 +36,8 @@ SceneManager::~SceneManager() {
 	_leaderBoard.saveScores(file);
 	file.close();
 
-	delete _presentation;
 	delete _currentScene;
+	delete _presentation;
 }
 
 void SceneManager::update() {
