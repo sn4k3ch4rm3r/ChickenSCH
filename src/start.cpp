@@ -2,6 +2,7 @@
 #include "game.h"
 #include "leaderboard.h"
 #include "scene_manager.h"
+#include "memtrace.h"
 
 Start::Start() {
 	_titleText = SceneManager::getInstance().getPresentation()->loadTexture("assets/title.png");

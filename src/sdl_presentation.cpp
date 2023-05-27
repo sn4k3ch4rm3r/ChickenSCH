@@ -4,6 +4,7 @@
 #include <SDL_Image.h>
 #include "sdl_input_provider.h"
 #include "sdl_texture.h"
+#include "memtrace.h"
 
 SDLPresentation::SDLPresentation(const char* title, int width, int height) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {

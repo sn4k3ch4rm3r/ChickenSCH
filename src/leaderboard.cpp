@@ -1,6 +1,6 @@
 #include "leaderboard.h"
-#include <cstring>
-#include <iostream>
+#include <algorithm>
+#include <string>
 #include "presentation.h"
 #include "scene_manager.h"
 #include "vector2.h"
@@ -41,8 +41,12 @@ void LeaderBoard::loadScores(std::istream& is) {
 void LeaderBoard::render() {
 	IPresentation* presentation = SceneManager::getInstance().getPresentation();
 	for (int i = 0; i < 10; i++) {
-		presentation->renderText(_scores[i]->name, Vector2(80, 85 + i * 17));
-		presentation->renderText(std::to_string(_scores[i]->score).c_str(), Vector2(285, 85 + i * 17));
+		//Ezt eredetileg stringstream-el akartam, de az meghalt a memtrace miatt
+		std::string line = _scores[i]->name;
+		std::string score_str = std::to_string(_scores[i]->score);
+		line += std::string(30 - line.length() - score_str.length(), '.');
+		line += score_str;
+		presentation->renderText(line.c_str(), Vector2(80, 85 + i * 17));
 	}
 }
 
