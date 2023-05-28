@@ -23,7 +23,7 @@ SDLPresentation::SDLPresentation(const char* title, int width, int height) {
 		std::cerr << "Error while creating renderer: " << SDL_GetError() << std::endl;
 	}
 
-	// SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	SDL_SetWindowFullscreen(_window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	SDL_RenderSetLogicalSize(_renderer, width, height);
 
 	_inputProvider = new SDLInputProvider();

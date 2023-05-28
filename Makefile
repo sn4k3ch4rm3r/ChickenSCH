@@ -40,7 +40,7 @@ clean:
 
 uml: setupdirs
 	if not exist "build/docs" mkdir "build/docs"
-	hpp2plantuml -i "include/*" -o "build/docs/classdiagram.puml" -t docs/diagrams/src/template.puml
+	hpp2plantuml -i "build/jporta/*.h" -o "build/docs/classdiagram.puml" -t docs/diagrams/src/template.puml
 	code "build/docs/classdiagram.puml"
 
 pdf: docs/build/dokumentacio.pdf

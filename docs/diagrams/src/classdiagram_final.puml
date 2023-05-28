@@ -1,0 +1,510 @@
+@startuml
+
+
+
+title "ChickenSCH - Class Diagram"
+
+hide circle
+remove @unlinked
+skinparam ClassAttributeIconSize 0
+
+
+
+/' Objects '/
+
+class Chicken {
+	+Chicken(const Vector2& position, int health)
+	-_direction : Direction
+	-_eggProbability : double
+	+getEggProbability() : double {query}
+	+getDirection() : int {query}
+	+onCollision(const GameObject* other) : void
+	+setDirection(Direction direction) : void
+	+update() : void
+}
+
+
+class DescendingChicken {
+	+DescendingChicken(const Vector2& position, int health)
+	-_startingX : int
+	+update() : void
+}
+
+
+class DescendingLevel {
+	+operator()(Game* game) : int
+}
+
+
+class Game {
+	+Game()
+	+~Game()
+	-_isGameOver : bool
+	-_activeEnemies : int
+	-_currentLevel : int
+	-_score : int
+	-_entities : std::list<GameObject*>
+	-_levels : std::vector<Level*>
+	+addEntity(GameObject* entity) : void
+	-loadNextLevel() : void
+	+render() : void
+	+update() : void
+}
+
+
+class GameObject {
+	+GameObject()
+	+GameObject(const Vector2& position, CollisionTag tag, int health)
+	+~GameObject()
+	-_tag : CollisionTag
+	+getSize() : Size {query}
+	-_texture : Texture*
+	+getTexture() : Texture* {query}
+	-_position : Vector2
+	-_velocity : Vector2
+	+getPosition() : Vector2 {query}
+	+getVelocity() : Vector2 {query}
+	+checkCollision(const GameObject* other) : bool {query}
+	+isAlive() : bool {query}
+	+isProjectile() : bool {query}
+	-_health : int
+	+getHealth() : int {query}
+	+getTag() : int {query}
+	+onCollision(const GameObject* other) : void
+	+render() : void
+	+setPosition(const Vector2& position) : void
+	+setTag(CollisionTag tag) : void
+	+setTexture(Texture* texture) : void
+	+setVelocity(const Vector2& velocity) : void
+	+update() : void
+}
+
+
+class GameOver {
+	+GameOver(int score)
+	+~GameOver()
+	-_leaderBoardItem : LeaderBoardItem
+	-_gameOverText : Texture*
+	-_textbox : Texture*
+	+render() : void
+	+update() : void
+}
+
+
+class Gun {
+	+Gun()
+	-_level : int
+	+reset() : void
+	+shoot(Vector2 position) : void
+	+upgrade() : void
+}
+
+
+abstract class IPresentation {
+	+~IPresentation()
+	+{abstract} getInputProvider() : InputProvider*
+	+{abstract} loadTexture(const char* path) : Texture*
+	+{abstract} isRunning() : bool
+	+{abstract} clearScreen() : void
+	+{abstract} handleEvents() : void
+	+{abstract} renderScreen() : void
+	+{abstract} renderText(const char* text, const Vector2& position) : void
+	+{abstract} renderTexture(const Texture* texture, const Vector2& position) : void
+}
+
+
+abstract class InputProvider {
+	+~InputProvider()
+	+{abstract} getMovementDirection() : Vector2 {query}
+	+{abstract} isInputReady() : bool
+	+{abstract} isShooting() : bool
+	+{abstract} getInputText() : char*
+	+{abstract} clearInputText() : void
+	+{abstract} handleEvent(void* event) : void
+	+{abstract} setInputMode(InputMode mode) : void
+}
+
+
+class JPortaPresentation {
+	+JPortaPresentation(const char* title, int width, int height)
+	+~JPortaPresentation()
+	-_inputProvider : InputProvider*
+	+getInputProvider() : InputProvider*
+	+loadTexture(const char* path) : Texture*
+	-_isRunning : bool
+	+isRunning() : bool
+	+clearScreen() : void
+	+handleEvents() : void
+	+renderScreen() : void
+	+renderText(const char* text, const Vector2& position) : void
+	+renderTexture(const Texture* texture, const Vector2& position) : void
+}
+
+
+class JPortaTexture {
+	+getSize() : Size {query}
+}
+
+
+class JportaInputProvider {
+	+JportaInputProvider()
+	-_inputMode : InputMode
+	+getMovementDirection() : Vector2 {query}
+	-_canShoot : bool
+	-_inputReady : bool
+	+isInputReady() : bool
+	+isShooting() : bool
+	-_inputText : char
+	+getInputText() : char*
+	+clearInputText() : void
+	+handleEvent(void* event) : void
+	+setInputMode(InputMode mode) : void
+}
+
+
+class LeaderBoard {
+	+~LeaderBoard()
+	-_scores : std::vector<LeaderBoardItem*>
+	+addScore(LeaderBoardItem* item) : void
+	+loadScores(std::istream& is) : void
+	+render() : void
+	+saveScores(std::ostream& os) : void
+}
+
+
+abstract class Level {
+	+Level()
+	+~Level()
+	-_difficulty : int
+	+getDifficulty() : int {query}
+	+{abstract} operator()(Game* game) : int
+	+increaseDifficulty() : void
+}
+
+
+class OrderedChicken {
+	+OrderedChicken(const Vector2& position, int health)
+	-_startingX : int
+	+update() : void
+}
+
+
+class OrderedLevel {
+	+operator()(Game* game) : int
+}
+
+
+class Player {
+	+Player(const Vector2& position)
+	-_gun : Gun
+	+onCollision(const GameObject* other) : void
+	+update() : void
+}
+
+
+class Projectile {
+	+Projectile(const Vector2& position, const Vector2& velocity, CollisionTag tag)
+	+checkCollision(const GameObject* other) : bool {query}
+	+isProjectile() : bool {query}
+}
+
+
+class Random {
+	+{static} randBool(double probability) : bool
+	+{static} randDouble(double min, double max) : double
+	+{static} randInt(int min, int max) : int
+	+{static} seed(unsigned int seed) : void
+}
+
+
+class RandomChicken {
+	+RandomChicken(const Vector2& position, int health)
+	+update() : void
+}
+
+
+class RandomLevel {
+	+operator()(Game* game) : int
+}
+
+
+class SDLInputProvider {
+	+SDLInputProvider()
+	-_inputMode : InputMode
+	+getMovementDirection() : Vector2 {query}
+	-_canShoot : bool
+	-_inputReady : bool
+	+isInputReady() : bool
+	+isShooting() : bool
+	-_inputText : char
+	+getInputText() : char*
+	+clearInputText() : void
+	+handleEvent(void* event) : void
+	+setInputMode(InputMode mode) : void
+}
+
+
+class SDLPresentation {
+	+SDLPresentation(const char* title, int width, int height)
+	+~SDLPresentation()
+	-_inputProvider : InputProvider*
+	+getInputProvider() : InputProvider*
+	-_renderer : SDL_Renderer*
+	-_window : SDL_Window*
+	+loadTexture(const char* path) : Texture*
+	-_isRunning : bool
+	+isRunning() : bool
+	+clearScreen() : void
+	+handleEvents() : void
+	+renderScreen() : void
+	+renderText(const char* text, const Vector2& position) : void
+	+renderTexture(const Texture* texture, const Vector2& position) : void
+}
+
+
+class SDLTexture {
+	+SDLTexture(SDL_Texture* texture)
+	+~SDLTexture()
+	-_texture : SDL_Texture*
+	+getTexture() : SDL_Texture* {query}
+	+getSize() : Size {query}
+}
+
+
+abstract class Scene {
+	+~Scene()
+	+{abstract} render() : void
+	+{abstract} update() : void
+}
+
+
+class SceneManager {
+	-SceneManager()
+	+~SceneManager()
+	-_presentation : IPresentation*
+	+getPresentation() : IPresentation* {query}
+	-_leaderBoard : LeaderBoard
+	+getLeaderBoard() : LeaderBoard&
+	-_currentScene : Scene*
+	+getCurrentScene() : Scene* {query}
+	+{static} getInstance() : SceneManager&
+	-_size : Size
+	+getSize() : Size {query}
+	+isRunning() : bool {query}
+	+getDeltaTime() : double {query}
+	-{static} _instance : static SceneManager
+	-_deltaTime : std::chrono::nanoseconds
+	-_lastTime : std::chrono::time_point<std::chrono::high_resolution_clock>
+	+handleEvents() : void
+	+render() : void
+	+setCurrentScene(Scene* scene) : void
+	+update() : void
+}
+
+
+class Size {
+	+Size(double width, double height)
+	+getHeight() : double {query}
+	+getWidth() : double {query}
+}
+
+
+class Start {
+	+Start()
+	+~Start()
+	-_titleText : Texture*
+	+render() : void
+	+update() : void
+}
+
+
+abstract class Texture {
+	+~Texture()
+	+{abstract} getSize() : Size {query}
+}
+
+
+class Vector2 {
+	+Vector2()
+	+Vector2(const Vector2& v)
+	+Vector2(double x, double y)
+	+operator*(double scalar) : Vector2 {query}
+	+operator*(double scalar, const Vector2& v) : Vector2
+	+operator+(const Vector2& v) : Vector2 {query}
+	+operator-(const Vector2& v) : Vector2 {query}
+	+operator/(double scalar) : Vector2 {query}
+	+rotate(double angle) : Vector2 {query}
+	+operator+=(const Vector2& v) : Vector2&
+	+operator-=(const Vector2& v) : Vector2&
+	-_x : double
+	-_y : double
+	+getX() : double {query}
+	+getY() : double {query}
+	+operator<<(std::ostream& os, const Vector2& v) : std :: ostream&
+}
+
+
+enum CollisionTag {
+	ENEMY
+	NONE
+	PLAYER
+	POWERUP
+}
+
+
+enum Direction {
+	LEFT
+	RIGHT
+}
+
+
+enum InputMode {
+	GAME
+	TEXTBOX
+}
+
+
+class LeaderBoardItem {
+	+name : char
+	+score : int
+	+operator>>(std::istream& is, LeaderBoardItem& item) : std :: istream&
+	+operator<<(std::ostream& os, const LeaderBoardItem& item) : std :: ostream&
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+.Chicken <|-- .DescendingChicken
+
+
+.Chicken <|-- .OrderedChicken
+
+
+.Chicken <|-- .RandomChicken
+
+
+.GameObject <|-- .Chicken
+
+
+.GameObject <|-- .Player
+
+
+.GameObject <|-- .Projectile
+
+
+.IPresentation <|-up- .JPortaPresentation
+
+
+.IPresentation <|-up- .SDLPresentation
+
+
+.InputProvider <|-up- .JportaInputProvider
+
+
+.InputProvider <|-up- .SDLInputProvider
+
+
+.Level <|-- .DescendingLevel
+
+
+.Level <|-- .OrderedLevel
+
+
+.Level <|-- .RandomLevel
+
+
+.Scene <|-- .Game
+
+
+.Scene <|-- .GameOver
+
+
+.Scene <|-- .Start
+
+
+.Texture <|-- .JPortaTexture
+
+
+.Texture <|-- .SDLTexture
+
+
+.Vector2 <|-up- .Size
+
+
+
+
+
+/' Aggregation relationships '/
+
+.Chicken *-- .Direction
+
+
+.Game o-- .GameObject
+
+
+.Game o-- .Level
+
+
+.GameObject *-right- .CollisionTag
+
+
+.GameObject o-- .Texture
+
+
+.GameObject "2" *-left- .Vector2
+
+
+.GameOver *-- .LeaderBoardItem
+
+
+.GameOver "2" o-- .Texture
+
+
+.JPortaPresentation o-up- .InputProvider
+
+
+.JportaInputProvider *-right- .InputMode
+
+
+.LeaderBoard o-down- .LeaderBoardItem
+
+
+.Player *-- .Gun
+
+
+.SDLInputProvider *-left- .InputMode
+
+
+.SDLPresentation o-up- .InputProvider
+
+
+.SceneManager o-up- .IPresentation
+
+
+.SceneManager *-- .LeaderBoard
+
+
+.SceneManager o-- .Scene
+
+
+.SceneManager *-- .SceneManager
+
+
+.SceneManager *-left- .Size
+
+
+.Start o-- .Texture
+
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml
