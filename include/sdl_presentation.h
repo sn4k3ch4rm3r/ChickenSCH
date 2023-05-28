@@ -7,6 +7,7 @@
 #include "texture.h"
 #include "vector2.h"
 
+/// @brief SDL alapú megjelenítési felület.
 class SDLPresentation : public IPresentation {
 public:
 	SDLPresentation(const char* title, int width, int height);

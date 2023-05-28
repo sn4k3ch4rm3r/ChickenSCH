@@ -3,6 +3,7 @@
 
 #include "vector2.h"
 
+/// @brief Textúra interface.
 class Texture {
 public:
 	virtual ~Texture() {}

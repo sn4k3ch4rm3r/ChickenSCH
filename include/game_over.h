@@ -6,6 +6,8 @@
 
 class GameOver : public Scene {
 public:
+	/// @brief A game over képernyő konstruktora.
+	/// @param score A játékban elért pontszám, a ranglistára mentéshez van szükség rá.
 	explicit GameOver(int score);
 	~GameOver();
 

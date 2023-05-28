@@ -5,6 +5,7 @@
 #include "texture.h"
 #include "vector2.h"
 
+/// @brief SDL megjelenítéshez használt textúra.
 class SDLTexture : public Texture {
 public:
 	explicit SDLTexture(SDL_Texture* texture)

@@ -5,6 +5,7 @@
 #include "gun.h"
 #include "vector2.h"
 
+/// @brief A játékos osztálya.
 class Player : public GameObject {
 public:
 	explicit Player(const Vector2& position);
