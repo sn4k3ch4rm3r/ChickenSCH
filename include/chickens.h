@@ -42,7 +42,7 @@ public:
 	Chicken(const Vector2& position, int health);
 
 	/// @brief A csirke frissítése.
-	virtual void update() override;
+	void update() override;
 
 	/// @brief A csirke ütközésének kezelése.
 	/// @param other A másik játékobjektum.

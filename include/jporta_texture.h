@@ -6,7 +6,6 @@
 
 class JPortaTexture : public Texture {
 public:
-	JPortaTexture* getTexture() const { return nullptr; };
 	Size getSize() const override { return Size(0, 0); };
 };
 #endif

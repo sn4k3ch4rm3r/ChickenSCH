@@ -19,11 +19,11 @@ GameOver::~GameOver() {
 
 void GameOver::update() {
 	SceneManager& context = SceneManager::getInstance();
-	strcpy_s(_leaderBoardItem.name, 20 * sizeof(char), context.getPresentation()->getInputProvider()->getInputText());
+	std::strncpy(_leaderBoardItem.name, context.getPresentation()->getInputProvider()->getInputText(), 20);
 	if (context.getPresentation()->getInputProvider()->isInputReady()) {
 		if (strlen(_leaderBoardItem.name) > 0) {
 			LeaderBoardItem* item = new LeaderBoardItem();
-			strcpy_s(item->name, 20 * sizeof(char), _leaderBoardItem.name);
+			std::strncpy(item->name, _leaderBoardItem.name, 20);
 			item->score = _leaderBoardItem.score;
 			context.getLeaderBoard().addScore(item);
 		}

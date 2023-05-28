@@ -18,14 +18,6 @@ double Vector2::getY() const {
 	return _y;
 }
 
-void Vector2::setX(double x) {
-	this->_x = x;
-}
-
-void Vector2::setY(double y) {
-	this->_y = y;
-}
-
 const double PI = 3.14159265358979323846;
 Vector2 Vector2::rotate(double angle) const {
 	double rad = angle * (PI / 180);

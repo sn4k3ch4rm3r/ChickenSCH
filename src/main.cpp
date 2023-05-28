@@ -1,3 +1,8 @@
+//TODO: Remove before flight
+#ifndef CPORTA
+#define CPORTA
+#endif
+
 #ifndef CPORTA
 
 #include "m_random.h"
@@ -20,17 +25,24 @@ int main() {
 #else
 
 #include <iostream>
+#include <sstream>
+#include <string>
+#include "game.h"
+#include "leaderboard.h"
+#include "levels.h"
 #include "vector2.h"
 #include "gtest_lite.h"
 #include "memtrace.h"
 
 int main() {
-	// Vector2 Tests
-
 	TEST(Vector2Test, Constructor) {
 		Vector2 v(2.0, 3.0);
 		EXPECT_DOUBLE_EQ(2.0, v.getX());
 		EXPECT_DOUBLE_EQ(3.0, v.getY());
+
+		Vector2 v2;
+		EXPECT_DOUBLE_EQ(0.0, v2.getX());
+		EXPECT_DOUBLE_EQ(0.0, v2.getY());
 	}
 	END
 
@@ -40,6 +52,11 @@ int main() {
 		Vector2 result = v1 + v2;
 		EXPECT_DOUBLE_EQ(3.0, result.getX());
 		EXPECT_DOUBLE_EQ(5.0, result.getY());
+
+		Vector2 v3(1.0, 2.0);
+		v3 += v1;
+		EXPECT_DOUBLE_EQ(3.0, v3.getX());
+		EXPECT_DOUBLE_EQ(5.0, v3.getY());
 	}
 	END
 
@@ -49,6 +66,11 @@ int main() {
 		Vector2 result = v1 - v2;
 		EXPECT_DOUBLE_EQ(1.0, result.getX());
 		EXPECT_DOUBLE_EQ(1.0, result.getY());
+
+		Vector2 v3(1.0, 2.0);
+		v3 -= v1;
+		EXPECT_DOUBLE_EQ(-1.0, v3.getX());
+		EXPECT_DOUBLE_EQ(-1.0, v3.getY());
 	}
 	END
 
@@ -86,6 +108,62 @@ int main() {
 		EXPECT_DOUBLE_EQ(1.0, result.getY());
 	}
 	END
-}
 
+	TEST(LeaderBoardTest, LeaderBoardItem) {
+		LeaderBoardItem item;
+		std::stringstream sIn("Alice 12300");
+		sIn >> item;
+		EXPECT_STREQ("Alice", item.name);
+		EXPECT_EQ(12300, item.score);
+
+		std::stringstream sOut;
+		sOut << item;
+		EXPECT_STREQ("Alice 12300", sOut.str().c_str());
+	}
+	END
+
+	TEST(LeaderBoardTest, LeaderBoard) {
+		LeaderBoard lb;
+		LeaderBoardItem* item = new LeaderBoardItem();
+		strcpy(item->name, "Bob");
+		item->score = 23400;
+
+		std::stringstream sIn("Alice 12300");
+		lb.loadScores(sIn);
+		lb.addScore(item);
+		std::stringstream sOut;
+		lb.saveScores(sOut);
+
+		// EXPECT_STREQ("Bob 23400\nAlice 12300\n", sOut.str().c_str());
+	}
+	END
+
+	TEST(LevelTest, all) {
+		Game* game = new Game();
+		Level* level1 = new OrderedLevel();
+		Level* level2 = new RandomLevel();
+		Level* level3 = new DescendingLevel();
+
+		EXPECT_EQ(50, (*level1)(game));
+		EXPECT_EQ(1, level1->getDifficulty());
+		level1->increaseDifficulty();
+		EXPECT_EQ(2, level1->getDifficulty());
+
+		EXPECT_GT(8, (*level2)(game));
+		EXPECT_EQ(10, (*level3)(game));
+
+		delete game;
+		delete level1;
+		delete level2;
+		delete level3;
+	}
+	END
+
+	TEST(Game, update) {
+		Game* game = new Game();
+		// game->update();
+		delete game;
+	}
+	END
+}
 #endif

@@ -12,8 +12,6 @@ public:
 
 	virtual double getX() const;
 	virtual double getY() const;
-	void setX(double x);
-	void setY(double y);
 
 	/// @brief Vektor forgatása.
 	/// @param angle Forgatás szöge fokokban

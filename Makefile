@@ -18,7 +18,7 @@ debug: CXXFLAGS += -g
 debug: INCLUDE += -I"$(SDL_INCLUDE)" $(LIB)
 debug: setupdirs $(PROG)
 
-test: CXXFLAGS += -DCPORTA -g -Wextra -pedantic --coverage
+test: CXXFLAGS := -std=c++17 -Wall -Werror -g -DCPORTA -DMEMTRACE -D_JPORTA_STAT -fprofile-arcs -ftest-coverage -O0
 test: setupdirs $(PROG)
 
 setupdirs:
@@ -49,9 +49,9 @@ docs/build/dokumentacio.pdf:
 
 jporta: setupdirs pdf
 	if not exist "build/jporta" mkdir "build/jporta"
-	$(shell robocopy src build/jporta * /XF main.cpp sdl* )
-	$(shell robocopy include build/jporta * /XF sdl* )
-	xcopy /Y docs\\build\\dokumentacio.pdf build\\jporta\\
+	$(shell robocopy src build/jporta * /XF memtrace.cpp )
+	$(shell robocopy include build/jporta * /XF memtrace.h gtest_lite.h )
+	$(shell cd build/jporta && zip ../jporta.zip ./*)
 
 static:
 	cppcheck src/ --force --enable=all -i .\src\memtrace.cpp -i .\src\test.cpp -I include/
