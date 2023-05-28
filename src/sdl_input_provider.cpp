@@ -1,3 +1,5 @@
+#ifndef CPORTA
+
 #include "sdl_input_provider.h"
 #include <SDL.h>
 #include <cstring>
@@ -87,3 +89,5 @@ void SDLInputProvider::clearInputText() {
 bool SDLInputProvider::isInputReady() {
 	return _inputReady;
 }
+
+#endif

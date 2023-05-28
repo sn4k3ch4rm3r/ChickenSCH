@@ -5,7 +5,7 @@
 #include "input_provider.h"
 #include "vector2.h"
 
-/// @brief SDL alapú megjeleítő.
+/// @brief SDL alapú bemenetkezelő.
 class SDLInputProvider : public InputProvider {
 public:
 	SDLInputProvider()

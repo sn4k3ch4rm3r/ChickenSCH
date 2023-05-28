@@ -1,3 +1,5 @@
+#ifndef CPORTA
+
 #include "sdl_presentation.h"
 #include <SDL.h>
 #include <SDL2_gfxPrimitives.h>
@@ -84,3 +86,5 @@ bool SDLPresentation::isRunning() {
 InputProvider* SDLPresentation::getInputProvider() {
 	return _inputProvider;
 }
+
+#endif

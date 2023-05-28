@@ -61,6 +61,8 @@ SortIncludes: true
 IncludeCategories:
   - Regex: '^"memtrace.h"'
     Priority: 999
+  - Regex: '^"gtest_lite.h"'
+    Priority: 998
   - Regex: "^<.*>"
     Priority: 1
   - Regex: '^".*"'

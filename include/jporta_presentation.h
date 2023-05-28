@@ -12,9 +12,9 @@ public:
 
 	Texture* loadTexture(const char* path) override;
 	void renderTexture(const Texture* texture, const Vector2& position) override;
+	void renderText(const char* text, const Vector2& position) override;
 	void clearScreen() override;
 	void renderScreen() override;
-	void exit() override;
 	void handleEvents() override;
 	bool isRunning() override;
 	InputProvider* getInputProvider() override;

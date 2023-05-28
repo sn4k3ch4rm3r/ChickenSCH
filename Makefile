@@ -1,50 +1,37 @@
+RM := rmdir /S /Q
 PROG := nhf
 SRCDIR := src
 BUILDDIR := build
 OBJDIR := $(BUILDDIR)/obj
 TARGET := $(BUILDDIR)/bin
-CXXFLAGS := -Wall -Wextra -pedantic -Werror -std=c++17 -DMEMTRACE
+CXXFLAGS := -Wall -std=c++17 -DMEMTRACE
 INCLUDE := -I include
-LIB := -lSDL2_gfx -lSDL2_image -lSDL2_mixer -lSDL2_ttf
-OBJECTS := $(patsubst $(SRCDIR)/%.cpp, %.o, $(filter-out $(SRCDIR)/test.cpp $(SRCDIR)/main.cpp, $(wildcard $(SRCDIR)/*.cpp)))
+LIB := -L"$(MINGW_LIB)" -lmingw32 -lSDL2main -lSDL2 -lSDL2_gfx -lSDL2_image -lSDL2_mixer -lSDL2_ttf -luser32 -lgdi32 -lwinmm -ldxguid
+OBJECTS := $(patsubst $(SRCDIR)/%.cpp, %.o, $(wildcard $(SRCDIR)/*.cpp))
 
-# Windows
-ifdef OS
-	RM := rmdir /S /Q
-	INCLUDE += -I"$(SDL_INCLUDE)"
-	LIB := -L"$(MINGW_LIB)" -lmingw32 -lSDL2main -lSDL2 $(LIB) -luser32 -lgdi32 -lwinmm -ldxguid
-	MKDIR := if not exist "$(BUILDDIR)" mkdir $(BUILDDIR) & if not exist "$(OBJDIR)" mkdir "$(OBJDIR)" & if not exist "$(TARGET)" mkdir "$(TARGET)"
-	COPYASSETS := xcopy assets\ build\bin\assets\ /Y
-# Linux
-else
-	RM := rm -rf
-	INCLUDE += `sdl2-config --cflags`
-	LIB := -lm `sdl2-config --libs` $(LIB)
-	MKDIR := mkdir -p $(BUILDDIR); mkdir -p $(OBJDIR); mkdir -p $(TARGET)
-	COPYASSETS := cp assets/ build/bin/ -r -f
-endif
 
 default: CXXFLAGS += -O3
+default: INCLUDE += -I"$(SDL_INCLUDE)" $(LIB)
 default: setupdirs $(PROG)
 
 debug: CXXFLAGS += -g
+debug: INCLUDE += -I"$(SDL_INCLUDE)" $(LIB)
 debug: setupdirs $(PROG)
 
-test: CXXFLAGS += -g -DCPORTA
-test: setupdirs $(PROG)_test
+test: CXXFLAGS += -DCPORTA -g -Wextra -pedantic --coverage
+test: setupdirs $(PROG)
 
 setupdirs:
-	$(MKDIR)
+	if not exist "$(BUILDDIR)" mkdir $(BUILDDIR)
+	if not exist "$(OBJDIR)" mkdir "$(OBJDIR)"
+	if not exist "$(TARGET)" mkdir "$(TARGET)"
+	xcopy assets\ build\bin\ /Y
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -c -o $@ $<
 
-$(PROG): $(OBJDIR)/main.o $(addprefix $(OBJDIR)/, $(OBJECTS))
-	$(CXX) $(CXXFLAGS) -o $(TARGET)/$@ $^ $(LIB)
-
-$(PROG)_test: $(OBJDIR)/test.o $(addprefix $(OBJDIR)/, $(OBJECTS))
-	$(CXX) $(CXXFLAGS) -o $(TARGET)/$@ $^ $(LIB)
-	$(TARGET)/$@
+$(PROG): $(addprefix $(OBJDIR)/, $(OBJECTS))
+	$(CXX) $(CXXFLAGS) -o $(TARGET)/$@ $^ 
 
 clean:
 	$(RM) $(BUILDDIR)
