@@ -15,7 +15,6 @@ public:
 	virtual void renderText(const char* text, const Vector2& position) = 0;
 	virtual void clearScreen() = 0;
 	virtual void renderScreen() = 0;
-	virtual void exit() = 0;
 	virtual void handleEvents() = 0;
 	virtual bool isRunning() = 0;
 	virtual InputProvider* getInputProvider() = 0;

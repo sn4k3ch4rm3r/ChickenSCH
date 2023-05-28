@@ -3,6 +3,7 @@
 #include <vector>
 #include "chickens.h"
 #include "game_object.h"
+#include "game_over.h"
 #include "levels.h"
 #include "player.h"
 #include "presentation.h"
@@ -55,10 +56,18 @@ void Game::update() {
 					_score += 100;
 				}
 			}
+			if (entity->getTag() == PLAYER && !entity->isProjectile()) {
+				_isGameOver = true;
+			}
 			delete entity;
 		}
 		return shouldRemove;
 	});
+
+	if (_isGameOver) {
+		SceneManager::getInstance().setCurrentScene(new GameOver(_score));
+		return;
+	}
 
 	for (auto it = _entities.begin(); it != _entities.end(); it++) {
 		(*it)->update();
@@ -70,7 +79,7 @@ void Game::update() {
 }
 
 void Game::render() {
-	IPresentation* _presentation = SceneManager::getInstance().getPresentation();
+	auto _presentation = SceneManager::getInstance().getPresentation();
 	for (auto& entity : _entities) {
 		entity->render();
 	}

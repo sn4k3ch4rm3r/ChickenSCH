@@ -1,4 +1,6 @@
 #include "game_over.h"
+#include <cstring>
+#include "leaderboard.h"
 #include "scene_manager.h"
 #include "start.h"
 
@@ -7,6 +9,7 @@ GameOver::GameOver(int score) {
 	_leaderBoardItem.name[0] = '\0';
 	_gameOverText = SceneManager::getInstance().getPresentation()->loadTexture("assets/game_over.png");
 	_textbox = SceneManager::getInstance().getPresentation()->loadTexture("assets/textbox.png");
+	SceneManager::getInstance().getPresentation()->getInputProvider()->setInputMode(TEXTBOX);
 }
 
 GameOver::~GameOver() {
@@ -14,10 +17,22 @@ GameOver::~GameOver() {
 	delete _textbox;
 }
 
-void GameOver::update() {}
+void GameOver::update() {
+	SceneManager& context = SceneManager::getInstance();
+	strcpy_s(_leaderBoardItem.name, 20 * sizeof(char), context.getPresentation()->getInputProvider()->getInputText());
+	if (context.getPresentation()->getInputProvider()->isInputReady()) {
+		if (strlen(_leaderBoardItem.name) > 0) {
+			LeaderBoardItem* item = new LeaderBoardItem();
+			strcpy_s(item->name, 20 * sizeof(char), _leaderBoardItem.name);
+			item->score = _leaderBoardItem.score;
+			context.getLeaderBoard().addScore(item);
+		}
+		context.setCurrentScene(new Start());
+	}
+}
 
 void GameOver::render() {
-	IPresentation* presentation = SceneManager::getInstance().getPresentation();
+	auto presentation = SceneManager::getInstance().getPresentation();
 	presentation->renderTexture(_gameOverText, Vector2(75, 15));
 	presentation->renderText(
 	    ("Your score: " + std::to_string(_leaderBoardItem.score)).c_str(),

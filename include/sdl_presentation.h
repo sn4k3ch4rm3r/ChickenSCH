@@ -20,7 +20,6 @@ public:
 	void renderText(const char* text, const Vector2& position) override;
 	void clearScreen() override;
 	void renderScreen() override;
-	void exit() override;
 	void handleEvents() override;
 	bool isRunning() override;
 	InputProvider* getInputProvider() override;

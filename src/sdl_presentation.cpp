@@ -64,19 +64,16 @@ void SDLPresentation::renderScreen() {
 	SDL_RenderPresent(_renderer);
 }
 
-void SDLPresentation::exit() {
-	SDL_Quit();
-}
-
 void SDLPresentation::handleEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		if (event.type == SDL_QUIT) {
 			_isRunning = false;
 		}
-		if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_SPACE) {
-			_inputProvider->setCanShoot(true);
+		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+			_isRunning = false;
 		}
+		_inputProvider->handleEvent(&event);
 	}
 }
 
