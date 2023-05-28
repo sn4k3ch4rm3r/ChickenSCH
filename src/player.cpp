@@ -5,7 +5,7 @@
 
 Player::Player(const Vector2& position)
     : GameObject(position, PLAYER, 3) {
-	setTexture(SceneManager::getInstance().getPresentation()->loadTexture("assets/ship.png"));
+	setTexture(SceneManager::getInstance().getPresentation()->loadTexture("ship.png"));
 }
 
 void Player::update() {

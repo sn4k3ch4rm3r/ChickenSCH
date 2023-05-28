@@ -11,15 +11,16 @@ OBJECTS := $(patsubst $(SRCDIR)/%.cpp, %.o, $(wildcard $(SRCDIR)/*.cpp))
 
 
 default: CXXFLAGS += -O3
-default: INCLUDE += -I"$(SDL_INCLUDE)" $(LIB)
+default: INCLUDE += -I"$(SDL_INCLUDE)"
 default: setupdirs $(PROG)
 
 debug: CXXFLAGS += -g
-debug: INCLUDE += -I"$(SDL_INCLUDE)" $(LIB)
+debug: INCLUDE += -I"$(SDL_INCLUDE)"
 debug: setupdirs $(PROG)
 
 test: CXXFLAGS := -std=c++17 -Wall -Werror -g -DCPORTA -DMEMTRACE -D_JPORTA_STAT -fprofile-arcs -ftest-coverage -O0
 test: setupdirs $(PROG)
+test: LIB =
 
 setupdirs:
 	if not exist "$(BUILDDIR)" mkdir $(BUILDDIR)
@@ -31,7 +32,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -c -o $@ $<
 
 $(PROG): $(addprefix $(OBJDIR)/, $(OBJECTS))
-	$(CXX) $(CXXFLAGS) -o $(TARGET)/$@ $^ 
+	$(CXX) $(CXXFLAGS) -o $(TARGET)/$@ $^ $(LIB)
 
 clean:
 	$(RM) $(BUILDDIR)

@@ -62,10 +62,6 @@ void SDLInputProvider::handleEvent(void* event) {
 	}
 }
 
-void SDLInputProvider::setCanShoot(bool canShoot) {
-	_canShoot = canShoot;
-}
-
 void SDLInputProvider::setInputMode(InputMode mode) {
 	_inputMode = mode;
 	if (mode == TEXTBOX) {

@@ -9,7 +9,7 @@ class Random {
 public:
 	/// @brief A random szám generátor inicializálása.
 	/// @param seed A random szám generátor seed-je.
-	static void seed(int seed = std::time(nullptr)) {
+	static void seed(unsigned int seed = std::time(nullptr)) {
 		srand(seed);
 	}
 

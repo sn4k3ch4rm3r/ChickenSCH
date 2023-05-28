@@ -13,7 +13,6 @@ public:
 
 	Vector2 getMovementDirection() const override;
 	bool isShooting() override;
-	void setCanShoot(bool canShoot) override;
 	void setInputMode(InputMode mode) override;
 	char* getInputText() override;
 	void clearInputText() override;

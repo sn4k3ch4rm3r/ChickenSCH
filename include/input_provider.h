@@ -28,10 +28,6 @@ public:
 	/// @return Éppen lő-e a játékos.
 	virtual bool isShooting() = 0;
 
-	/// @brief Lövés engedélyezése.
-	/// @param canShoot Engedélyezett-e a lövés.
-	virtual void setCanShoot(bool canShoot) = 0;
-
 	/// @brief A játék input módjának beállítása.
 	/// @param mode Általában GAME, ha a játékban vagyunk, TEXTBOX, ha a szövegbevitelben.
 	virtual void setInputMode(InputMode mode) = 0;

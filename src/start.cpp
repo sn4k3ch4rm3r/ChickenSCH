@@ -5,7 +5,7 @@
 #include "memtrace.h"
 
 Start::Start() {
-	_titleText = SceneManager::getInstance().getPresentation()->loadTexture("assets/title.png");
+	_titleText = SceneManager::getInstance().getPresentation()->loadTexture("title.png");
 }
 
 Start::~Start() {

@@ -32,7 +32,7 @@ void Chicken::onCollision(const GameObject* other) {
 OrderedChicken::OrderedChicken(const Vector2& position, int health)
     : Chicken(position, health), _startingX(position.getX()) {
 	setTexture(SceneManager::getInstance().getPresentation()->loadTexture(
-	    "assets/blue_chicken.png"
+	    "blue_chicken.png"
 	));
 	setVelocity(
 	    Vector2(
@@ -55,7 +55,7 @@ void OrderedChicken::update() {
 RandomChicken::RandomChicken(const Vector2& position, int health)
     : Chicken(position, health) {
 	setTexture(SceneManager::getInstance().getPresentation()->loadTexture(
-	    "assets/pink_chicken.png"
+	    "pink_chicken.png"
 	));
 	setDirection(Random::randBool() ? LEFT : RIGHT);
 	setVelocity(
@@ -79,7 +79,7 @@ void RandomChicken::update() {
 DescendingChicken::DescendingChicken(const Vector2& position, int health)
     : Chicken(position, health), _startingX(position.getX()) {
 	setTexture(SceneManager::getInstance().getPresentation()->loadTexture(
-	    "assets/green_chicken.png"
+	    "green_chicken.png"
 	));
 	setVelocity(
 	    Vector2(

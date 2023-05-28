@@ -6,11 +6,7 @@ Vector2 JportaInputProvider::getMovementDirection() const {
 }
 
 bool JportaInputProvider::isShooting() {
-	return false;
-}
-
-void JportaInputProvider::setCanShoot(bool canShoot) {
-	_canShoot = canShoot;
+	return _canShoot;
 }
 
 void JportaInputProvider::setInputMode(InputMode mode) {

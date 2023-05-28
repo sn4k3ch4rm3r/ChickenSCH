@@ -8,13 +8,13 @@ Projectile::Projectile(const Vector2& position, const Vector2& velocity, Collisi
 	setTag(tag);
 	switch (tag) {
 		case PLAYER:
-			setTexture(SceneManager::getInstance().getPresentation()->loadTexture("assets/laser.png"));
+			setTexture(SceneManager::getInstance().getPresentation()->loadTexture("laser.png"));
 			break;
 		case ENEMY:
-			setTexture(SceneManager::getInstance().getPresentation()->loadTexture("assets/egg.png"));
+			setTexture(SceneManager::getInstance().getPresentation()->loadTexture("egg.png"));
 			break;
 		case POWERUP:
-			setTexture(SceneManager::getInstance().getPresentation()->loadTexture("assets/powerup.png"));
+			setTexture(SceneManager::getInstance().getPresentation()->loadTexture("powerup.png"));
 			break;
 		case NONE:
 			break;

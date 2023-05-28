@@ -1,8 +1,3 @@
-//TODO: Remove before flight
-#ifndef CPORTA
-#define CPORTA
-#endif
-
 #ifndef CPORTA
 
 #include "m_random.h"
@@ -28,8 +23,12 @@ int main() {
 #include <sstream>
 #include <string>
 #include "game.h"
+#include "game_over.h"
+#include "gun.h"
 #include "leaderboard.h"
 #include "levels.h"
+#include "scene_manager.h"
+#include "start.h"
 #include "vector2.h"
 #include "gtest_lite.h"
 #include "memtrace.h"
@@ -111,6 +110,7 @@ int main() {
 
 	TEST(LeaderBoardTest, LeaderBoardItem) {
 		LeaderBoardItem item;
+		item.score = 0;
 		std::stringstream sIn("Alice 12300");
 		sIn >> item;
 		EXPECT_STREQ("Alice", item.name);
@@ -134,7 +134,7 @@ int main() {
 		std::stringstream sOut;
 		lb.saveScores(sOut);
 
-		// EXPECT_STREQ("Bob 23400\nAlice 12300\n", sOut.str().c_str());
+		EXPECT_STREQ("Bob 23400\nAlice 12300\n", sOut.str().c_str());
 	}
 	END
 
@@ -161,8 +161,41 @@ int main() {
 
 	TEST(Game, update) {
 		Game* game = new Game();
-		// game->update();
-		delete game;
+		SceneManager::getInstance().setCurrentScene(game);
+		game->update();
+	}
+	END
+
+	TEST(Start, update) {
+		Start* start = new Start();
+		SceneManager::getInstance().setCurrentScene(start);
+		start->update();
+	}
+	END
+
+	TEST(GameOver, update) {
+		GameOver* gameOver = new GameOver(1000);
+		SceneManager::getInstance().setCurrentScene(gameOver);
+		gameOver->update();
+	}
+	END
+
+	TEST(Gun, all) {
+		Game* game = new Game();
+		SceneManager::getInstance().setCurrentScene(game);
+		Gun gun;
+		gun.shoot(Vector2(0, 0));
+		gun.upgrade();
+		gun.shoot(Vector2(0, 0));
+		gun.upgrade();
+		gun.upgrade();
+		gun.shoot(Vector2(0, 0));
+		gun.reset();
+	}
+	END
+
+	TEST(SceneManager, update) {
+		SceneManager::getInstance().update();
 	}
 	END
 }

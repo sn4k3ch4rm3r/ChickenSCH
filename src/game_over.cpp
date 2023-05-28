@@ -7,8 +7,8 @@
 GameOver::GameOver(int score) {
 	_leaderBoardItem.score = score;
 	_leaderBoardItem.name[0] = '\0';
-	_gameOverText = SceneManager::getInstance().getPresentation()->loadTexture("assets/game_over.png");
-	_textbox = SceneManager::getInstance().getPresentation()->loadTexture("assets/textbox.png");
+	_gameOverText = SceneManager::getInstance().getPresentation()->loadTexture("game_over.png");
+	_textbox = SceneManager::getInstance().getPresentation()->loadTexture("textbox.png");
 	SceneManager::getInstance().getPresentation()->getInputProvider()->setInputMode(TEXTBOX);
 }
 
